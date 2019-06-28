@@ -86,6 +86,7 @@ cc.Class({
         });
         cc.find('resident').on('showPeng',function(data){
             if (cc.find('Canvas/headBox')!=null) {
+                cc.find('Canvas/background').stopAllActions();
                 let users = data.data;
                 let shake = cc.sequence(cc.scaleTo(0.05,1.1),cc.scaleTo(0.05,1),cc.scaleTo(0.05,1.1),cc.scaleTo(0.05,1),cc.scaleTo(0.05,1.1),cc.scaleTo(0.05,1))
                 let str = "";
