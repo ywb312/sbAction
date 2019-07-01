@@ -84,6 +84,7 @@ cc.Class({
                 }
             }
         });
+        // 每次收到peng都会调用     设置碰撞点的展示 击杀效果
         cc.find('resident').on('showPeng',function(data){
             if (cc.find('Canvas/headBox')!=null) {
                 cc.find('Canvas/background').stopAllActions();

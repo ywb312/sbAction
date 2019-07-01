@@ -214,8 +214,6 @@ cc.Class({
             this.cupPic.getComponent(cc.Sprite).spriteFrame = list[obj.n];
         }
     },
-    // 每次收到peng都会调用     设置碰撞点的展示 击杀效果
-
     // 监听碰撞
     onCollisionEnter:function(other,self){
         if (other.node.group == 'coin') {
