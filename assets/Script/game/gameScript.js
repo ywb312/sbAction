@@ -196,4 +196,8 @@ cc.Class({
             cc.audioEngine.play(self.createPrefabMusic,false,1);
         }
     },
+    onDestroy(){
+        clearTimeout(this.pengTimer);
+        clearTimeout(this.checkTime);
+    }
 });

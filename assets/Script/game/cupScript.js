@@ -7,6 +7,10 @@ cc.Class({
         },
         cupPic : cc.Node,
         head : cc.Node,
+        combo2:cc.SpriteFrame,
+        combo3:cc.SpriteFrame,
+        combo4:cc.SpriteFrame,
+        combo5:cc.SpriteFrame,
         invincible : cc.Node,
         cupOne:{
             default:[],
@@ -114,21 +118,19 @@ cc.Class({
             type: [cc.SpriteFrame],
         },
     },
-    // 每个杯子的函数
-    // 杯子编号
-    setNum(num){
-        this.num = num;
-    },
     start(){
         this.tool = 0;
-        this.bol = false;
+        this.bol = true;
+        this.combo = 0;
         // 闪烁动画
         this.timer = setInterval(()=>{
-            this.node.active = !this.node.active;
+            this.bol = !this.bol;
             if (this.bol) {
-                clearInterval(this.timer);
+                this.node.opacity = 255; 
+            }else{
+                this.node.opacity = 0;
             }
-        },1500);
+        },300);
         // 抖动动画
         this.shakeAction = cc.repeatForever(
             cc.sequence(
@@ -144,6 +146,12 @@ cc.Class({
                 cc.rotateTo(0.05,0),
             )
         );
+        this.comboTimer = null;
+        this.coinTimer = null;
+    },
+    // 杯子编号
+    setNum(num){
+        this.num = num;
     },
     // 每次收到users都会调用     设置位置切换图片
     setCupPosition(i,obj){
@@ -151,7 +159,12 @@ cc.Class({
             //每次碰撞变成
             this.tool  = obj.tool;
             if (obj.ck == 1) {
-                this.bol = true;
+                clearInterval(this.timer);
+                // 最终显示
+                this.node.opacity = 255; 
+                cc.find('Canvas/bz/bz'+this.num+'/par').active = true;
+            }else{
+                cc.find('Canvas/bz/bz'+this.num+'/par').active = false;
             }
             let cupList = [this.cupOne,this.cupTwo,this.cupThree,this.cupFour,this.cupFive,this.cupSix];
             let penList = [this.penOne,this.penTwo,this.penThree,this.penFour,this.penFive,this.penSix];
@@ -227,6 +240,7 @@ cc.Class({
     },
     // 监听碰撞
     onCollisionEnter:function(other,self){
+        // 只有接收到金币才会显示
         if (other.node.group == 'coin') {
             if (self.tag == 1) {
                 this.getCoin(other,1);
@@ -255,10 +269,39 @@ cc.Class({
             }
         }
     },
-    //碰撞后调用
+    //成功接到金币后调用
     getCoin(obj,type){
+        // 播放音乐 销毁节点
         cc.audioEngine.play(this.getMoney,false,1);
         obj.node.parent.destroy();
+        // 连续接金币
+        this.combo++;
+        switch (this.combo) {
+            case 2:
+                cc.find('Canvas/bz/bz'+this.num+'/text').getComponent(cc.Sprite).spriteFrame = this.combo2;
+                cc.find('Canvas/bz/bz'+this.num+'/text').active = true;
+                break;
+            case 3:
+                cc.find('Canvas/bz/bz'+this.num+'/text').getComponent(cc.Sprite).spriteFrame = this.combo3;
+                break;
+            case 4:
+                cc.find('Canvas/bz/bz'+this.num+'/text').getComponent(cc.Sprite).spriteFrame = this.combo4;
+                break;
+            case 5:
+                cc.find('Canvas/bz/bz'+this.num+'/text').getComponent(cc.Sprite).spriteFrame = this.combo5;
+                break;
+        }
+        clearTimeout(this.comboTimer);
+        this.comboTimer = setTimeout(()=>{
+            this.combo = 0;
+            cc.find('Canvas/bz/bz'+this.num+'/text').active = false;
+        },2000);
+        // +1效果展示
+        clearTimeout(this.coinTimer);
+        cc.find('Canvas/bz/bz'+this.num+'/addOne').active = true;
+        this.coinTimer = setTimeout(()=>{
+            cc.find('Canvas/bz/bz'+this.num+'/addOne').active = false;
+        },500);
         // 检查元素
         cc.find('Canvas/control').getComponent('gameScript').checkPrefab();
         var score = {};
@@ -320,4 +363,8 @@ cc.Class({
         glassNode.runAction(cc.moveBy(0.5,cc.v2(0,-50)));
         this.scheduleOnce(function(){glassNode.destroy();},0.5);
     },
+    onDestroy(){
+        clearTimeout(this.coinTimer);
+        clearTimeout(this.comboTimer);
+    }
 });
