@@ -200,11 +200,13 @@ cc.Class({
 		// 不可能为空
 		for(let j = 0; j < this.userList.length; j++) {
 			for(let i = 0; i < data.length; i++) {
+				//对用户进行更新
 				if(data[i].user.openid == this.userList[j].user.openid) {
 					this.userList[j].x = data[i].x;
 					this.userList[j].y = data[i].y;
 					this.userList[j].n = data[i].n;
 					this.userList[j].t = data[i].t;
+					this.userList[j].ck = data[i].ck;
 				}
 			}
 		}

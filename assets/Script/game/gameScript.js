@@ -76,8 +76,9 @@ cc.Class({
                             cc.find('Canvas/bz/bz'+j+'/head').getComponent(cc.Sprite).spriteFrame = newFra;
                             cc.find('Canvas/headBox/player'+j+'/img/headImg').getComponent(cc.Sprite).spriteFrame = newFra;
                         });
-                        // 设置每一个杯子 每一个头像框
+                        // 设置每一个头像框
                         cc.find('Canvas/headBox/player'+j).getComponent('headBoxScript').setColor(data[i].c-1);
+                        // 每一个杯子  将数据传至cupScript
                         cc.find('Canvas/bz/bz'+j).getComponent('cupScript').setCupPosition(j,data[i]);
                         cc.find('Canvas/bz/bz'+j).active = true;
                     }

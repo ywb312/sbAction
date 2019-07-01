@@ -121,6 +121,14 @@ cc.Class({
     },
     start(){
         this.tool = 0;
+        this.bol = false;
+        // 闪烁动画
+        this.timer = setInterval(()=>{
+            this.node.active = !this.node.active;
+            if (this.bol) {
+                clearInterval(this.timer);
+            }
+        },1500);
         // 抖动动画
         this.shakeAction = cc.repeatForever(
             cc.sequence(
@@ -142,6 +150,9 @@ cc.Class({
         if (i == this.num) {
             //每次碰撞变成
             this.tool  = obj.tool;
+            if (obj.ck == 1) {
+                this.bol = true;
+            }
             let cupList = [this.cupOne,this.cupTwo,this.cupThree,this.cupFour,this.cupFive,this.cupSix];
             let penList = [this.penOne,this.penTwo,this.penThree,this.penFour,this.penFive,this.penSix];
             let gangList = [this.gangOne,this.gangTwo,this.gangThree,this.gangFour,this.gangFive,this.gangSix];   
@@ -244,6 +255,7 @@ cc.Class({
             }
         }
     },
+    //碰撞后调用
     getCoin(obj,type){
         cc.audioEngine.play(this.getMoney,false,1);
         obj.node.parent.destroy();
