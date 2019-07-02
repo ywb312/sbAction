@@ -159,7 +159,7 @@ cc.Class({
         }
         cc.find('resident').emit('upCoin',obj);
         if (this.count<=20) {
-            if (this.count%2 == 0) {
+            if (this.count<=10) {
                 this.node.parent.scale += 0.1;
             }
             if (this.count%10 == 0) {

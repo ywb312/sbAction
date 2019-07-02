@@ -269,7 +269,7 @@ cc.Class({
             }
         }
     },
-    //成功接到金币后调用
+    //成功接到金币后调用    几连中 接到金币的数量
     getCoin(obj,type){
         // 播放音乐 销毁节点
         cc.audioEngine.play(this.getMoney,false,1);

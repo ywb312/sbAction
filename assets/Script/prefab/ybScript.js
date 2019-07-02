@@ -50,5 +50,10 @@ cc.Class({
         }
         this.node.x-=this.setX;
         this.node.y-=this.setY;
+        this.node.getParent().getChildByName('light').active = true;
+        clearTimeout(this.light);
+        this.light = setTimeout(()=>{
+            this.node.getParent().getChildByName('light').active = false;
+        },100);
     }
 });

@@ -57,6 +57,17 @@ cc.Class({
     start () {
         let _self = this;
         cc.director.preloadScene('final',()=>{});
+        // 屏幕摇晃动画
+        this.shake = cc.sequence(
+            cc.scaleTo(0.08,1.1),
+            cc.scaleTo(0.05,1.05),cc.scaleTo(0.05,1.1),
+            cc.scaleTo(0.05,1.05),cc.scaleTo(0.05,1.1),
+            cc.scaleTo(0.05,1.05),cc.scaleTo(0.05,1.1),
+            cc.scaleTo(0.05,1.05),cc.scaleTo(0.05,1.1),
+            cc.scaleTo(0.05,1.05),cc.scaleTo(0.05,1.1),
+            cc.scaleTo(0.05,1.05),cc.scaleTo(0.05,1.1),
+            cc.scaleTo(0.08,1)
+        );
         // 游戏中
         cc.find('resident').getComponent('residentScript').playing = 1;
         // 后台返回玩家的数组
@@ -90,26 +101,31 @@ cc.Class({
             if (cc.find('Canvas/headBox')!=null) {
                 cc.find('Canvas/background').stopAllActions();
                 let users = data.data;
-                let shake = cc.sequence(cc.scaleTo(0.05,1.1),cc.scaleTo(0.05,1),cc.scaleTo(0.05,1.1),cc.scaleTo(0.05,1),cc.scaleTo(0.05,1.1),cc.scaleTo(0.05,1))
                 let str = "";
                 if (users[0].d == 0) {  //0没死 1死了
                     if (users[1].d == 0) {
-                        str = users[0].user.nickname +"和"+ users[1].user.nickname + "擦起了火花";
                     }else{
-                        cc.find('Canvas/background').runAction(shake);
                         str = users[0].user.nickname +"击杀了"+ users[1].user.nickname;
+                        dieAction();
                     }
                 }else{
                     if (users[1].d == 0) {
                         str = users[1].user.nickname +"击杀了"+ users[0].user.nickname;
+                        dieAction();
                     }else{
-                        str = users[0].user.nickname +"和"+ users[1].user.nickname+"殉情了";
+                        str = users[0].user.nickname+"阵亡"+users[1].user.nickname;
+                        dieAction();
                     }  
-                    cc.find('Canvas/background').runAction(shake);
+                }
+                // 有人死亡时调用
+                function dieAction(){
+                    cc.find('Canvas/background').runAction(_self.shake);
+                    cc.find('Canvas/background/text').active = true;
+                    cc.find('Canvas/flash').active = true;
                 }
                 cc.find('Canvas/background/text').getComponent(cc.Label).string = str;
                 cc.find('Canvas/background/text').setPosition(data.pos.x,data.pos.y);
-                cc.find('Canvas/background/text').active = true;
+                // 定时关闭阵亡信息
                 clearTimeout(_self.pengTimer);
                 _self.pengTimer = setTimeout(()=>{
                     cc.find('Canvas/background/text').active = false;
