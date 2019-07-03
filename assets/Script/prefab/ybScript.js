@@ -1,6 +1,7 @@
 cc.Class({
     extends: cc.Component,
     properties: {
+        light:cc.Node,
     },
     // 控制下落 
     start () {
@@ -43,6 +44,7 @@ cc.Class({
     },
     // 碰撞到杯壁
     coinCrash(str){
+        let _self = this;
         if (str == 'x') {
             this.setX = -this.setX;
         }else if (str == 'y') {
@@ -50,10 +52,14 @@ cc.Class({
         }
         this.node.x-=this.setX;
         this.node.y-=this.setY;
-        this.node.getParent().getChildByName('light').active = true;
-        clearTimeout(this.light);
-        this.light = setTimeout(()=>{
-            this.node.getParent().getChildByName('light').active = false;
-        },100);
+        // 金币发光
+        this.light.active = true;
+        clearTimeout(this.lightTimer);
+        this.lightTimer = setTimeout(()=>{
+            _self.light.active = false;
+        },300);
+    },
+    onDestroy(){
+        clearTimeout(this.lightTimer);
     }
 });
