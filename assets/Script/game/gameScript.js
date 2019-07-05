@@ -105,30 +105,32 @@ cc.Class({
                 if (users[0].d == 0) {  //0没死 1死了
                     if (users[1].d == 0) {
                     }else{
-                        str = users[0].user.nickname +"击杀了"+ users[1].user.nickname;
+                        str = users[0].user.nickname +" 击杀了 "+ users[1].user.nickname;
                         dieAction();
                     }
                 }else{
                     if (users[1].d == 0) {
-                        str = users[1].user.nickname +"击杀了"+ users[0].user.nickname;
+                        str = users[1].user.nickname +" 击杀了 "+ users[0].user.nickname;
                         dieAction();
                     }else{
-                        str = users[0].user.nickname+"阵亡"+users[1].user.nickname;
+                        str = users[0].user.nickname+" 阵亡 "+users[1].user.nickname;
                         dieAction();
                     }  
                 }
                 // 有人死亡时调用
                 function dieAction(){
+                    cc.find('Canvas/flash').active = true;
                     cc.find('Canvas/background').runAction(_self.shake);
                     cc.find('Canvas/background/text').active = true;
-                    cc.find('Canvas/flash').active = true;
+                    cc.find('Canvas/background/text').getComponent(cc.Label).string = str;
+                    cc.find('Canvas/background/boom').active = true;
+                    cc.find('Canvas/background/boom').setPosition(data.pos.x,data.pos.y);
                 }
-                cc.find('Canvas/background/text').getComponent(cc.Label).string = str;
-                cc.find('Canvas/background/text').setPosition(data.pos.x,data.pos.y);
                 // 定时关闭阵亡信息
                 clearTimeout(_self.pengTimer);
                 _self.pengTimer = setTimeout(()=>{
                     cc.find('Canvas/background/text').active = false;
+                    cc.find('Canvas/background/boom').active = false;
                 },800);
             }
         });
