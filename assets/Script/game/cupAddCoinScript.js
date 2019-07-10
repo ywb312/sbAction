@@ -158,11 +158,11 @@ cc.Class({
                 break;
         }
         cc.find('resident').emit('upCoin',obj);
-        if (this.count<=20) {
-            if (this.count<=10) {
-                this.node.parent.scale += 0.1;
+        if (this.count<=10) {
+            if (this.count<=5) {
+                this.node.parent.scale += 0.2;
             }
-            if (this.count%10 == 0) {
+            if (this.count%5 == 0) {
                 cc.find('resident').emit('upAttack',obj.id);
             }
         }
