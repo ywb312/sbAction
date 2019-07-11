@@ -156,6 +156,7 @@ cc.Class({
     // 每次收到users都会调用     设置位置切换图片
     setCupPosition(i,obj){
         if (i == this.num) {
+            this.openid = obj.user.openid;
             //每次碰撞变成
             this.tool  = obj.tool;
             if (obj.ck == 1) {

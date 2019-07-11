@@ -72,9 +72,8 @@ cc.Class({
         cc.find('resident').getComponent('residentScript').playing = 1;
         // 后台返回玩家的数组
         this.createPrefab();
-        setTimeout(()=>{
-            this.createShenshou();
-        },10000);
+        // 创建神兽
+        this.createShenshou();
           // 控制杯子的显示
         cc.find('resident').on('usersAdv',function(data){
             if (cc.find('Canvas/headBox')!=null) {
@@ -219,10 +218,16 @@ cc.Class({
     },
     // 生成神兽
     createShenshou(){
-        // 每15s出现一次神兽
+        let bol = true;
+        // 每10s出现一次神兽
         this.animalTimer = setInterval(()=>{
-            cc.find('Canvas/shenshou').getComponent('animalScript').showLine();
-        },15000)
+            if (bol) {
+                cc.find('Canvas/shenshou').getComponent('animalScript').showLine();
+            }else{
+                cc.find('Canvas/shenshou').getComponent('animalScript').showBall();
+            }
+            bol = !bol;
+        },12000)
     },
     onDestroy(){
         clearTimeout(this.pengTimer);

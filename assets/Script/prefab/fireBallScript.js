@@ -4,9 +4,9 @@ cc.Class({
     },
     start () {
         // 随机生成
-        this.setX = Math.random()*61-30;
-        this.setY = Math.random()*41-20;
-        // 设定火球的一定范围
+        this.setX = Math.random()*99-49;
+        this.setY = Math.random()*99-49;
+        // 设定火球的一定范围及运动轨迹(反弹)
         this.schedule(function(){
             var pos = this.node.convertToWorldSpaceAR(cc.find('Canvas/background').position);
             // 设定区域 x轴
@@ -28,5 +28,14 @@ cc.Class({
             this.node.x-=this.setX;
             this.node.y-=this.setY;
         },0.04);
+    },
+    // 监听碰撞
+    onCollisionEnter:function(other,self){
+        // 只有接收到金币才会显示
+        if (other.node.group == 'bz') {
+            let playerId = other.node.getComponent('cupScript').openid;
+            self.node.destroy();
+            // 添加后续操作
+        }
     },
 });

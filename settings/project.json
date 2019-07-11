@@ -62,15 +62,14 @@
     "coin",
     "yuanbao",
     "silver",
-    "testcoin"
+    "ball"
   ],
-  "last-module-event-record-time": 1562221232630,
+  "last-module-event-record-time": 1562827940311,
   "simulator-orientation": false,
   "simulator-resolution": {
     "height": 640,
     "width": 960
   },
-  "start-scene": "current",
   "use-customize-simulator": false,
   "use-project-simulator-setting": false
 }
