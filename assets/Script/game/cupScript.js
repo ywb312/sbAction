@@ -159,6 +159,7 @@ cc.Class({
             this.openid = obj.user.openid;
             //每次碰撞变成
             this.tool  = obj.tool;
+            // 拖尾效果  监听是否有点击
             if (obj.ck == 1) {
                 clearInterval(this.timer);
                 // 最终显示
