@@ -158,17 +158,7 @@ cc.Class({
 		cc.find('resident').on('upAnimals', function(data) {
 			webSocket.send('{"action":"animals","pttoken":"' + cc.find('resident').getComponent('residentScript').pttoken +
 				'","rid":"' + cc.find('resident').getComponent('residentScript').roomId +
-				'","data":{"type":"' + data.type +
-				'","duration":"' + data.time +
-				'","a":' + data.a +
-				'","b":' + data.b +
-				'","c":' + data.c +
-				'","d":' + data.d +
-				'"}}');
-				// ',"a":' + JSON.stringify(data.a) +
-				// ',"b":' + JSON.stringify(data.b) +
-				// ',"c":' + JSON.stringify(data.c) +
-				// ',"d":' + JSON.stringify(data.d) +
+				'","data":'+ JSON.stringify(data) + '}');
 		});
 	},
 	// 加入头像显示

@@ -10,7 +10,7 @@ cc.Class({
         // 显示火线
         let data = {
             type:1,
-            time:2,
+            duration:2,
         }
         var targetNode = cc.find('Canvas/shenshou/fireLine');
         switch (Math.floor(Math.random()*3)) {
