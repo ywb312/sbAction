@@ -160,11 +160,11 @@ cc.Class({
 				'","rid":"' + cc.find('resident').getComponent('residentScript').roomId +
 				'","data":{"type":"' + data.type +
 				'","duration":"' + data.time +
-				',"a":' + data.a +
-				',"b":' + data.b +
-				',"c":' + data.c +
-				',"d":' + data.d +
-				'}}');
+				'","a":' + data.a +
+				'","b":' + data.b +
+				'","c":' + data.c +
+				'","d":' + data.d +
+				'"}}');
 				// ',"a":' + JSON.stringify(data.a) +
 				// ',"b":' + JSON.stringify(data.b) +
 				// ',"c":' + JSON.stringify(data.c) +
