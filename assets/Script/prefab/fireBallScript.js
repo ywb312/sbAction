@@ -4,8 +4,8 @@ cc.Class({
     },
     start () {
         // 随机生成
-        this.setX = Math.random()*51;
-        this.setY = Math.random()*51;
+        this.setX = Math.random()*9;
+        this.setY = Math.random()*9;
         // 设定火球的一定范围及运动轨迹(反弹) 07-12取消回弹
         this.schedule(function(){
             var pos = this.node.convertToWorldSpaceAR(cc.find('Canvas/background').position);
@@ -25,7 +25,7 @@ cc.Class({
                 // this.setY = -this.setY;
                 // this.node.y-=this.setY/2;
             // }
-            if (pos.x<=2700 || pos.x>=3420 || pos.y<=30 || pos.y>=1080) {
+            if (pos.x<=2700 || pos.y<=30 || pos.y>=1080) {
                 this.node.destroy();
             }
             this.node.x-=this.setX;
@@ -36,9 +36,14 @@ cc.Class({
     onCollisionEnter:function(other,self){
         // 只有接收到金币才会显示
         if (other.node.group == 'bz') {
+            let playerId = other.node.getComponent('cupScript').openid;
+            let data = {
+                type : 2,
+                openid : playerId
+            }
             self.node.destroy();
             // 添加后续操作
-            // let playerId = other.node.getComponent('cupScript').openid;
+            cc.find('resident').emit('upAnimals',data);
         }
     },
 });

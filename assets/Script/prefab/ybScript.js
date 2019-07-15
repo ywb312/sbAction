@@ -18,10 +18,10 @@ cc.Class({
                 allow = 1;
             }
             // 设定区域 x轴
-            if (pos.x<=2700) {
+            if (pos.x<=2620) {
                 this.setX = -this.setX;
                 this.node.x-=this.setX/2;
-            }else if (pos.x>=3410) {
+            }else if (pos.x>=3340) {
                 this.setX = -this.setX;
                 this.node.x-=this.setX/2;
             }
