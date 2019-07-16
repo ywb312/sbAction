@@ -11,79 +11,6 @@ cc.Class({
         combo3:cc.SpriteFrame,
         combo4:cc.SpriteFrame,
         combo5:cc.SpriteFrame,
-        invincible : cc.Node,
-        cupOne:{
-            default:[],
-            type: [cc.SpriteFrame],
-        },
-        cupTwo:{
-            default:[],
-            type: [cc.SpriteFrame],
-        },
-        cupThree:{
-            default:[],
-            type: [cc.SpriteFrame],
-        },
-        cupFour:{
-            default:[],
-            type: [cc.SpriteFrame],
-        },
-        cupFive:{
-            default:[],
-            type: [cc.SpriteFrame],
-        },
-        cupSix:{
-            default:[],
-            type: [cc.SpriteFrame],
-        },
-        penOne:{
-            default:[],
-            type: [cc.SpriteFrame],
-        },
-        penTwo:{
-            default:[],
-            type: [cc.SpriteFrame],
-        },
-        penThree:{
-            default:[],
-            type: [cc.SpriteFrame],
-        },
-        penFour:{
-            default:[],
-            type: [cc.SpriteFrame],
-        },
-        penFive:{
-            default:[],
-            type: [cc.SpriteFrame],
-        },
-        penSix:{
-            default:[],
-            type: [cc.SpriteFrame],
-        },
-        gangOne:{
-            default:[],
-            type: [cc.SpriteFrame],
-        },
-        gangTwo:{
-            default:[],
-            type: [cc.SpriteFrame],
-        },
-        gangThree:{
-            default:[],
-            type: [cc.SpriteFrame],
-        },
-        gangFour:{
-            default:[],
-            type: [cc.SpriteFrame],
-        },
-        gangFive:{
-            default:[],
-            type: [cc.SpriteFrame],
-        },
-        gangSix:{
-            default:[],
-            type: [cc.SpriteFrame],
-        },
         getMoney : {
             default:null,
             type : cc.AudioClip,
@@ -112,8 +39,23 @@ cc.Class({
             default:null,
             type : cc.AudioClip,
         },
-        //碰撞碎片
-        otherGlassPic:{
+        //新杯子
+        tool1:{
+            default:[],
+            type: [cc.SpriteFrame],
+        },
+        //酒瓶
+        tool2:{
+            default:[],
+            type: [cc.SpriteFrame],
+        },
+        //茅台
+        tool3:{
+            default:[],
+            type: [cc.SpriteFrame],
+        },
+        //碗
+        tool4:{
             default:[],
             type: [cc.SpriteFrame],
         },
@@ -168,9 +110,6 @@ cc.Class({
             }else{
                 cc.find('Canvas/bz/bz'+this.num+'/par').active = false;
             }
-            let cupList = [this.cupOne,this.cupTwo,this.cupThree,this.cupFour,this.cupFive,this.cupSix];
-            let penList = [this.penOne,this.penTwo,this.penThree,this.penFour,this.penFive,this.penSix];
-            let gangList = [this.gangOne,this.gangTwo,this.gangThree,this.gangFour,this.gangFive,this.gangSix];   
             // 设置位置
                 // 利用动画的方式
                 // this.node.stopAllActions();
@@ -180,62 +119,70 @@ cc.Class({
             var list = [];
             // 筛选出使用哪个数组
             switch (obj.tool) {
-                case 0:
-                    //颜色
-                    list = cupList[obj.c-1];
+                case 0:     //杯子碰撞体位置
+                    list = this.tool1;
                     this.head.setPosition(-38,-50);
-                    this.invincible.setPosition(0,0);
-                    this.node.getComponents(cc.BoxCollider)[0].offset = cc.v2(0,38);
-                    this.node.getComponents(cc.BoxCollider)[0].size.width = 80;
-                    this.node.getComponents(cc.BoxCollider)[1].offset = cc.v2(0,-2);
-                    this.node.getComponents(cc.BoxCollider)[1].size.width = 80;
+                    this.node.getComponents(cc.BoxCollider)[0].offset = cc.v2(0,25);
+                    this.node.getComponents(cc.BoxCollider)[0].size.width = 70;
+                    this.node.getComponents(cc.BoxCollider)[1].offset = cc.v2(0,-15);
+                    this.node.getComponents(cc.BoxCollider)[1].size.width = 70;
                     this.node.getComponents(cc.BoxCollider)[1].size.height = 75;
-                    this.node.getComponents(cc.BoxCollider)[2].offset = cc.v2(0,-45);
-                    this.node.getComponents(cc.BoxCollider)[2].size.width = 80;
+                    this.node.getComponents(cc.BoxCollider)[2].offset = cc.v2(0,-58);
+                    this.node.getComponents(cc.BoxCollider)[2].size.width = 70;
                     if (obj.n == 3) {
                         cc.find('Canvas/bz/bz'+i+'/mid').getComponent('cupAddCoinScript').boomNone();
                     }
                     break;
-                case "200":
-                    list = gangList[obj.c-1];
+                case "200":     // 啤酒瓶碰撞体位置
+                    list = this.tool2;
                     this.head.setPosition(-30,-40);
-                    this.invincible.setPosition(6,8);
-                    this.node.getComponents(cc.BoxCollider)[0].offset = cc.v2(1,45);
-                    this.node.getComponents(cc.BoxCollider)[0].size.width = 80;
-                    this.node.getComponents(cc.BoxCollider)[1].offset = cc.v2(0,5);
-                    this.node.getComponents(cc.BoxCollider)[1].size.width = 80;
-                    this.node.getComponents(cc.BoxCollider)[1].size.height = 75;
-                    this.node.getComponents(cc.BoxCollider)[2].offset = cc.v2(0,-38);
-                    this.node.getComponents(cc.BoxCollider)[2].size.width = 80;
-                    if (obj.n == 4) {
-                        cc.find('Canvas/bz/bz'+i+'/mid').getComponent('cupAddCoinScript').boomNone();
-                    }
-                    break;
-                case "300":
-                    list = penList[obj.c-1];
-                    this.head.setPosition(-50,-15);
-                    this.invincible.setPosition(-4,20);
-                    this.node.getComponents(cc.BoxCollider)[0].offset = cc.v2(0,32);
-                    this.node.getComponents(cc.BoxCollider)[0].size.width = 130;
-                    this.node.getComponents(cc.BoxCollider)[1].offset = cc.v2(0,8);
-                    this.node.getComponents(cc.BoxCollider)[1].size.width = 130;
-                    this.node.getComponents(cc.BoxCollider)[1].size.height = 40;
-                    this.node.getComponents(cc.BoxCollider)[2].offset = cc.v2(0,-15);
-                    this.node.getComponents(cc.BoxCollider)[2].size.width = 130;
+                    this.node.getComponents(cc.BoxCollider)[0].offset = cc.v2(0,14);
+                    this.node.getComponents(cc.BoxCollider)[0].size.width = 50;
+                    this.node.getComponents(cc.BoxCollider)[1].offset = cc.v2(0,-25);
+                    this.node.getComponents(cc.BoxCollider)[1].size.width = 50;
+                    this.node.getComponents(cc.BoxCollider)[1].size.height = 60;
+                    this.node.getComponents(cc.BoxCollider)[2].offset = cc.v2(0,-60);
+                    this.node.getComponents(cc.BoxCollider)[2].size.width = 50;
                     if (obj.n == 3) {
                         cc.find('Canvas/bz/bz'+i+'/mid').getComponent('cupAddCoinScript').boomNone();
                     }
                     break;
+                case "300":     //茅台碰撞体位置
+                    list = this.tool3;
+                    this.head.setPosition(-50,-15);
+                    this.node.getComponents(cc.BoxCollider)[0].offset = cc.v2(-5,20);
+                    this.node.getComponents(cc.BoxCollider)[0].size.width = 44;
+                    this.node.getComponents(cc.BoxCollider)[1].offset = cc.v2(-5,-25);
+                    this.node.getComponents(cc.BoxCollider)[1].size.width = 44;
+                    this.node.getComponents(cc.BoxCollider)[1].size.height = 60;
+                    this.node.getComponents(cc.BoxCollider)[2].offset = cc.v2(-5,60);
+                    this.node.getComponents(cc.BoxCollider)[2].size.width = 44;
+                    if (obj.n == 3) {
+                        cc.find('Canvas/bz/bz'+i+'/mid').getComponent('cupAddCoinScript').boomNone();
+                    }
+                    break;
+                // case "":      // 碗碰撞体位置
+                //     list = tool4;
+                //     this.head.setPosition(-50,-15);
+                //     this.node.getComponents(cc.BoxCollider)[0].offset = cc.v2(0,-15);
+                //     this.node.getComponents(cc.BoxCollider)[0].size.width = 90;
+                //     this.node.getComponents(cc.BoxCollider)[1].offset = cc.v2(0,-37);
+                //     this.node.getComponents(cc.BoxCollider)[1].size.width = 90;
+                //     this.node.getComponents(cc.BoxCollider)[1].size.height = 36;
+                //     this.node.getComponents(cc.BoxCollider)[2].offset = cc.v2(0,-60);
+                //     this.node.getComponents(cc.BoxCollider)[2].size.width = 50;
+                //     if (obj.n == 3) {
+                //         cc.find('Canvas/bz/bz'+i+'/mid').getComponent('cupAddCoinScript').boomNone();
+                //     }
+                //     break;
                 default:
                     break;
             }
             //由复活保护罩的显示 改为 抖动动画
             if (obj.t == 1){
-                // this.invincible.active = true;
                 this.node.runAction(this.shakeAction);
             } else {
                 this.node.stopAllActions();
-                // this.invincible.active = false;
             }
             this.cupPic.getComponent(cc.Sprite).spriteFrame = list[obj.n];
         }
@@ -276,7 +223,7 @@ cc.Class({
         // 播放音乐 销毁节点
         cc.audioEngine.play(this.getMoney,false,1);
         obj.node.parent.destroy();
-        // 连续接金币
+        // 连续接金币效果展示
         this.combo++;
         switch (this.combo) {
             case 2:
@@ -342,11 +289,12 @@ cc.Class({
         }
         score.once++;
         // 杯中金币数量
-        if (score.once<5) {
-            if (this.tool == 0) {
-                cc.find('Canvas/bz/bz'+this.num+'/mid').getComponent('cupAddCoinScript').createCoin(type);
-            }
-        } else {
+        if (score.once<5) { //不到5个
+            // 不执行杯中金币
+            // if (this.tool == 0) {
+            //     cc.find('Canvas/bz/bz'+this.num+'/mid').getComponent('cupAddCoinScript').createCoin(type);
+            // }
+        } else {//到5个
             score.once=0;
             score.sum += score.coin + score.silver * 5 +score.yb * 10;
             cc.find('Canvas/bz/bz'+this.num+'/mid').getComponent('cupAddCoinScript').removeCoin(this.num,type);

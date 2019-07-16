@@ -59,8 +59,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
+      "x": 1.5,
+      "y": 1.5,
       "z": 1
     },
     "_rotationX": 0,
@@ -201,13 +201,13 @@
     "tag": 0,
     "_offset": {
       "__type__": "cc.Vec2",
-      "x": 0,
+      "x": -4,
       "y": -5
     },
     "_size": {
       "__type__": "cc.Size",
-      "width": 60,
-      "height": 80
+      "width": 50,
+      "height": 60
     },
     "_id": ""
   },

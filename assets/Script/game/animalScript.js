@@ -13,13 +13,12 @@ cc.Class({
             duration:2,
         }
         var targetNode = cc.find('Canvas/shenshou/fireLine');
-        // switch (Math.floor(Math.random()*3)) {
-        switch (0) {
+        switch (Math.floor(Math.random()*3)) {
             case 0:
                 onceShow('Canvas/shenshou/fireLine/lineTop');
-                // setTimeout(()=>{
-                //     onceShow('Canvas/shenshou/fireLine/lineBottom');
-                // },2000);
+                setTimeout(()=>{
+                    onceShow('Canvas/shenshou/fireLine/lineBottom');
+                },2000);
                 break;
             case 1:
                 onceShow('Canvas/shenshou/fireLine/lineBottom');
@@ -28,7 +27,7 @@ cc.Class({
                 },2000);
                 break;
             case 2:
-                twoShow('Canvas/shenshou/fireLine/lineTop',2);
+                onceShow('Canvas/shenshou/fireLine/lineTop',2);
                 break;
         }
         //获取火线的区域
@@ -72,6 +71,8 @@ cc.Class({
     // 控制火球出来
     showBall(){
         var targetNode = cc.find('Canvas/shenshou/ball');
+        var x = 28;
+        var y = 16;
         // 创建3个火球
         for (let i = 0; i < 3 ; i++) {
             let newPrefab = cc.instantiate(this.fireBall);
@@ -80,7 +81,10 @@ cc.Class({
                 x : 280,
                 y : 428
             }
+            newPrefab.getComponent('fireBallScript').move(x,y);
             newPrefab.position = a;
+            x -= 8;
+            y += 8;
         }
     },
     // 控制冰区出来
