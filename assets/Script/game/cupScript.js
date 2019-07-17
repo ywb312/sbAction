@@ -115,25 +115,26 @@ cc.Class({
                 // this.node.stopAllActions();
                 // this.node.runAction(cc.moveTo(0.04,obj.x,obj.y));
             this.node.setPosition(obj.x+896,obj.y);
-            // 杯子类型 0 200 300
+            //  杯子类型 0 200 300
             var list = [];
-            // 筛选出使用哪个数组
+            //  筛选出使用哪个数组 
+            //  道具随机生成
             switch (obj.tool) {
-                case 0:     //杯子碰撞体位置
+                case 0:     //杯子  碰撞体位置
                     list = this.tool1;
                     this.head.setPosition(-38,-50);
-                    this.node.getComponents(cc.BoxCollider)[0].offset = cc.v2(0,25);
-                    this.node.getComponents(cc.BoxCollider)[0].size.width = 70;
-                    this.node.getComponents(cc.BoxCollider)[1].offset = cc.v2(0,-15);
-                    this.node.getComponents(cc.BoxCollider)[1].size.width = 70;
-                    this.node.getComponents(cc.BoxCollider)[1].size.height = 75;
-                    this.node.getComponents(cc.BoxCollider)[2].offset = cc.v2(0,-58);
-                    this.node.getComponents(cc.BoxCollider)[2].size.width = 70;
+                    this.node.getComponents(cc.BoxCollider)[0].offset = cc.v2(-8,20);
+                    this.node.getComponents(cc.BoxCollider)[0].size.width = 50;
+                    this.node.getComponents(cc.BoxCollider)[1].offset = cc.v2(-8,-16);
+                    this.node.getComponents(cc.BoxCollider)[1].size.width = 55;
+                    this.node.getComponents(cc.BoxCollider)[1].size.height = 65;
+                    this.node.getComponents(cc.BoxCollider)[2].offset = cc.v2(-8,-55);
+                    this.node.getComponents(cc.BoxCollider)[2].size.width = 55;
                     if (obj.n == 3) {
                         cc.find('Canvas/bz/bz'+i+'/mid').getComponent('cupAddCoinScript').boomNone();
                     }
                     break;
-                case "200":     // 啤酒瓶碰撞体位置
+                case "200":     // 啤酒瓶   碰撞体位置
                     list = this.tool2;
                     this.head.setPosition(-30,-40);
                     this.node.getComponents(cc.BoxCollider)[0].offset = cc.v2(0,14);
@@ -147,7 +148,7 @@ cc.Class({
                         cc.find('Canvas/bz/bz'+i+'/mid').getComponent('cupAddCoinScript').boomNone();
                     }
                     break;
-                case "300":     //茅台碰撞体位置
+                case "300":     //茅台  碰撞体位置
                     list = this.tool3;
                     this.head.setPosition(-50,-15);
                     this.node.getComponents(cc.BoxCollider)[0].offset = cc.v2(-5,20);
@@ -161,7 +162,7 @@ cc.Class({
                         cc.find('Canvas/bz/bz'+i+'/mid').getComponent('cupAddCoinScript').boomNone();
                     }
                     break;
-                // case "":      // 碗碰撞体位置
+                // case "":      // 碗  碰撞体位置
                 //     list = tool4;
                 //     this.head.setPosition(-50,-15);
                 //     this.node.getComponents(cc.BoxCollider)[0].offset = cc.v2(0,-15);
