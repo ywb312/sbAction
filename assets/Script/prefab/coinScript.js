@@ -14,7 +14,7 @@ cc.Class({
         // 初次下落超过1070
         let allow = 0;
         this.schedule(function(){
-            var pos = this.node.convertToWorldSpaceAR(cc.find('Canvas/background').position);
+            var pos = this.node.convertToWorldSpaceAR(cc.find('Canvas/shenshou').position);
             // 进入区域
             if (pos.y<1050) {
                 allow = 1;

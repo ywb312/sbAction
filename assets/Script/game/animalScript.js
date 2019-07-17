@@ -41,6 +41,7 @@ cc.Class({
         //单个显示
         function onceShow(str){
             cc.find(str).active = true;
+            cc.find(str).runAction(cc.scaleTo(0.16,1,1.2));
             var worldPoint1 = cc.find(str+'/coordinate1').convertToWorldSpaceAR(targetNode);
             var worldPoint2 = cc.find(str+'/coordinate2').convertToWorldSpaceAR(targetNode);
             var worldPoint3 = cc.find(str+'/coordinate3').convertToWorldSpaceAR(targetNode);
@@ -55,6 +56,7 @@ cc.Class({
             data.h = cc.find(str).height;
             cc.find('resident').emit('upAnimals',data);
             setTimeout(()=>{
+                cc.find(str).scaleY = 0.2;
                 cc.find(str).active = false;
             },2000);
         }

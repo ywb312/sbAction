@@ -179,8 +179,10 @@ cc.Class({
                 default:
                     break;
             }
-            //由复活保护罩的显示 改为 抖动动画
-            if (obj.t == 1){
+            //由复活保护罩的显示 改为 抖动动画          无敌
+            if (obj.t == 1 || obj.d == 1){
+                console.log('抖动');
+                console.log('d'+obj.d);
                 this.node.runAction(this.shakeAction);
             } else {
                 this.node.stopAllActions();

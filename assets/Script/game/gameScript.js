@@ -227,7 +227,7 @@ cc.Class({
                 cc.find('Canvas/shenshou').getComponent('animalScript').showBall();
             }
             bol = !bol;
-        },12000)
+        },8000);
     },
     onDestroy(){
         clearTimeout(this.pengTimer);

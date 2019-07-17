@@ -47,7 +47,8 @@ cc.Class({
     // 杯子碰碎执行
     boomNone() {
         this.count = 0;
-        this.node.parent.scale = 1;
+        // 杯子缩放默认1.5
+        this.node.parent.scale = 1.5;
         // 获取货币数量
         switch (this.person) {
             case 1:
@@ -191,8 +192,9 @@ cc.Class({
                 break;
         }
         cc.find('Canvas').addChild(move);
-        var pos = cc.find('Canvas/bz/bz' + num).position;
-        move.position = pos;
+        var x = cc.find('Canvas/bz/bz' + num).x;
+        var y = cc.find('Canvas/bz/bz' + num).y;
+        move.setPosition(x,y+25);
         var headPos = cc.find('Canvas/headBox/player' + num).position;
         move.runAction(cc.moveTo(0.8, headPos));
         this.scheduleOnce(() => {
