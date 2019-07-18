@@ -119,7 +119,7 @@ cc.Class({
                 // 利用动画的方式
                 // this.node.stopAllActions();
                 // this.node.runAction(cc.moveTo(0.04,obj.x,obj.y));
-            this.node.setPosition(obj.x+896,obj.y);
+            this.node.setPosition(obj.x,obj.y);
             //  杯子类型 0 200 300
             var list = [];
             //  筛选出使用哪个数组 

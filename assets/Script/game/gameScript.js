@@ -195,20 +195,31 @@ cc.Class({
     },
     // 生成神兽
     createShenshou(){
-        let bol = true;
+        let bol = 0;
         // 每10s出现一次神兽
         this.animalTimer = setInterval(()=>{
-            if (bol) {
-                cc.find('Canvas/shenshou').getComponent('animalScript').showLine();
-            }else{
-                cc.find('Canvas/shenshou').getComponent('animalScript').showBall();
+            switch (bol) {
+                case 0:
+                    cc.find('Canvas/shenshou').getComponent('animalScript').showLine();
+                    bol = 1;
+                    break;
+                case 1:
+                    cc.find('Canvas/shenshou').getComponent('animalScript').showBall();
+                    bol = 2;
+                    break;
+                case 2:
+                    cc.find('Canvas/shenshou').getComponent('animalScript').showPlane();
+                    bol = 3;
+                    break;
+                default:
+                    break;
             }
-            bol = !bol;
-        },8000);
+        },5000);
     },
     onDestroy(){
         clearTimeout(this.pengTimer);
         clearTimeout(this.checkTime);
         clearInterval(this.animalTimer);
+        clearInterval(this.fallTimer1);
     }
 });
