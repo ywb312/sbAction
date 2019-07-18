@@ -54,10 +54,13 @@ cc.Class({
             data.center  = posFloor(cc.find('Canvas/shenshou/fireLine').convertToNodeSpaceAR(worldPoint5));
             data.w = cc.find(str).width;
             data.h = cc.find(str).height;
-            cc.find('resident').emit('upAnimals',data);
+            let timer = setInterval(()=>{
+                cc.find('resident').emit('upAnimals',data);
+            },50);
             setTimeout(()=>{
                 cc.find(str).scaleY = 0.2;
                 cc.find(str).active = false;
+                clearInterval(timer);
             },2000);
         }
     },

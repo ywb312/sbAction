@@ -6,7 +6,6 @@ cc.Class({
             default: null
         },
         cupPic : cc.Node,
-        head : cc.Node,
         combo2:cc.SpriteFrame,
         combo3:cc.SpriteFrame,
         combo4:cc.SpriteFrame,
@@ -122,7 +121,6 @@ cc.Class({
             switch (obj.tool) {
                 case 0:     //杯子  碰撞体位置
                     list = this.tool1;
-                    this.head.setPosition(-38,-50);
                     this.node.getComponents(cc.BoxCollider)[0].offset = cc.v2(-8,20);
                     this.node.getComponents(cc.BoxCollider)[0].size.width = 50;
                     this.node.getComponents(cc.BoxCollider)[1].offset = cc.v2(-8,-16);
@@ -136,7 +134,6 @@ cc.Class({
                     break;
                 case "200":     // 啤酒瓶   碰撞体位置
                     list = this.tool2;
-                    this.head.setPosition(-30,-40);
                     this.node.getComponents(cc.BoxCollider)[0].offset = cc.v2(0,14);
                     this.node.getComponents(cc.BoxCollider)[0].size.width = 50;
                     this.node.getComponents(cc.BoxCollider)[1].offset = cc.v2(0,-25);
@@ -150,7 +147,6 @@ cc.Class({
                     break;
                 case "300":     //茅台  碰撞体位置
                     list = this.tool3;
-                    this.head.setPosition(-50,-15);
                     this.node.getComponents(cc.BoxCollider)[0].offset = cc.v2(-5,20);
                     this.node.getComponents(cc.BoxCollider)[0].size.width = 44;
                     this.node.getComponents(cc.BoxCollider)[1].offset = cc.v2(-5,-25);
@@ -164,7 +160,6 @@ cc.Class({
                     break;
                 // case "":      // 碗  碰撞体位置
                 //     list = tool4;
-                //     this.head.setPosition(-50,-15);
                 //     this.node.getComponents(cc.BoxCollider)[0].offset = cc.v2(0,-15);
                 //     this.node.getComponents(cc.BoxCollider)[0].size.width = 90;
                 //     this.node.getComponents(cc.BoxCollider)[1].offset = cc.v2(0,-37);
@@ -181,8 +176,6 @@ cc.Class({
             }
             //由复活保护罩的显示 改为 抖动动画          无敌
             if (obj.t == 1 || obj.d == 1){
-                console.log('抖动');
-                console.log('d'+obj.d);
                 this.node.runAction(this.shakeAction);
             } else {
                 this.node.stopAllActions();
