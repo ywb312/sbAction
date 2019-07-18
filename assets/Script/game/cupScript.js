@@ -6,6 +6,7 @@ cc.Class({
             default: null
         },
         cupPic : cc.Node,
+        headBoxType : cc.Node,
         combo2:cc.SpriteFrame,
         combo3:cc.SpriteFrame,
         combo4:cc.SpriteFrame,
@@ -58,6 +59,11 @@ cc.Class({
             default:[],
             type: [cc.SpriteFrame],
         },
+        // 头像框
+        headBox:{
+            default:[],
+            type: [cc.SpriteFrame],
+        }
     },
     start(){
         this.tool = 0;
@@ -128,6 +134,7 @@ cc.Class({
                     this.node.getComponents(cc.BoxCollider)[1].size.height = 65;
                     this.node.getComponents(cc.BoxCollider)[2].offset = cc.v2(-8,-55);
                     this.node.getComponents(cc.BoxCollider)[2].size.width = 55;
+                    this.headBoxType.getComponent(cc.Sprite).spriteFrame = this.headBox[0];
                     if (obj.n == 3) {
                         cc.find('Canvas/bz/bz'+i+'/mid').getComponent('cupAddCoinScript').boomNone();
                     }
@@ -141,6 +148,7 @@ cc.Class({
                     this.node.getComponents(cc.BoxCollider)[1].size.height = 60;
                     this.node.getComponents(cc.BoxCollider)[2].offset = cc.v2(0,-60);
                     this.node.getComponents(cc.BoxCollider)[2].size.width = 50;
+                    this.headBoxType.getComponent(cc.Sprite).spriteFrame = this.headBox[1];
                     if (obj.n == 3) {
                         cc.find('Canvas/bz/bz'+i+'/mid').getComponent('cupAddCoinScript').boomNone();
                     }
@@ -154,6 +162,7 @@ cc.Class({
                     this.node.getComponents(cc.BoxCollider)[1].size.height = 60;
                     this.node.getComponents(cc.BoxCollider)[2].offset = cc.v2(-5,60);
                     this.node.getComponents(cc.BoxCollider)[2].size.width = 44;
+                    this.headBoxType.getComponent(cc.Sprite).spriteFrame = this.headBox[2];
                     if (obj.n == 3) {
                         cc.find('Canvas/bz/bz'+i+'/mid').getComponent('cupAddCoinScript').boomNone();
                     }
@@ -167,6 +176,7 @@ cc.Class({
                 //     this.node.getComponents(cc.BoxCollider)[1].size.height = 36;
                 //     this.node.getComponents(cc.BoxCollider)[2].offset = cc.v2(0,-60);
                 //     this.node.getComponents(cc.BoxCollider)[2].size.width = 50;
+                //     this.headBoxType.getComponent(cc.Sprite).spriteFrame = this.headBox[3];
                 //     if (obj.n == 3) {
                 //         cc.find('Canvas/bz/bz'+i+'/mid').getComponent('cupAddCoinScript').boomNone();
                 //     }
@@ -263,12 +273,6 @@ cc.Class({
                 break;
             case 4:
                 score = cc.find('resident').getComponent('residentScript').player4Score;
-                break;
-            case 5:
-                score = cc.find('resident').getComponent('residentScript').player5Score;
-                break;
-            case 6:
-                score = cc.find('resident').getComponent('residentScript').player6Score;
                 break;
         }
         // 接到金币的类型 (金币 银元宝 金元宝)

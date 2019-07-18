@@ -51,8 +51,6 @@ cc.Class({
         cc.find('Canvas/bz/bz2').getComponent('cupScript').setNum(2);
         cc.find('Canvas/bz/bz3').getComponent('cupScript').setNum(3);
         cc.find('Canvas/bz/bz4').getComponent('cupScript').setNum(4);
-        cc.find('Canvas/bz/bz5').getComponent('cupScript').setNum(5);
-        cc.find('Canvas/bz/bz6').getComponent('cupScript').setNum(6);
     },
     start () {
         let _self = this;
@@ -76,9 +74,8 @@ cc.Class({
         this.createShenshou();
           // 控制杯子的显示
         cc.find('resident').on('usersAdv',function(data){
-            if (cc.find('Canvas/headBox')!=null) {
+            if (cc.find('Canvas/bz/bz1')!=null) {
                 _self.num = 5 * data.length;
-                cc.find('Canvas/headBox/player1').getComponent('headBoxScript').headPos();
                 for (let i = 0; i < data.length; i++) {
                     if (data[i].user.avatar!=undefined) {
                         let j = i + 1;
@@ -86,11 +83,8 @@ cc.Class({
                         cc.loader.load({url:data[i].user.avatar,type:'jpg'},function(err,ttt){
                             var newFra = new cc.SpriteFrame;
                             newFra.setTexture(ttt);
-                            // cc.find('Canvas/bz/bz'+j+'/head').getComponent(cc.Sprite).spriteFrame = newFra;
-                            cc.find('Canvas/headBox/player'+j+'/img/headImg').getComponent(cc.Sprite).spriteFrame = newFra;
+                            cc.find('Canvas/bz/bz'+j+'/headBox/img/headImg').getComponent(cc.Sprite).spriteFrame = newFra;
                         });
-                        // 设置每一个头像框
-                        cc.find('Canvas/headBox/player'+j).getComponent('headBoxScript').setColor(data[i].c-1);
                         // 每一个杯子  将数据传至cupScript
                         cc.find('Canvas/bz/bz'+j).getComponent('cupScript').setCupPosition(j,data[i]);
                         cc.find('Canvas/bz/bz'+j).active = true;
@@ -100,7 +94,7 @@ cc.Class({
         });
         // 每次收到peng都会调用     设置碰撞点的展示 击杀效果
         cc.find('resident').on('showPeng',function(data){
-            if (cc.find('Canvas/headBox')!=null) {
+            if (cc.find('Canvas/shenshou')!=null) {
                 cc.find('Canvas/background').stopAllActions();
                 let users = data.data;
                 let str = "";
@@ -142,14 +136,6 @@ cc.Class({
                 cc.find('Canvas/bz/bz2').active = false;
                 cc.find('Canvas/bz/bz3').active = false;
                 cc.find('Canvas/bz/bz4').active = false;
-                cc.find('Canvas/bz/bz5').active = false;
-                cc.find('Canvas/bz/bz6').active = false;
-                cc.find('Canvas/headBox/player1').active = false;
-                cc.find('Canvas/headBox/player2').active = false;
-                cc.find('Canvas/headBox/player3').active = false;
-                cc.find('Canvas/headBox/player4').active = false;
-                cc.find('Canvas/headBox/player5').active = false;
-                cc.find('Canvas/headBox/player6').active = false;
             }
         });
         cc.find('resident').on('goEnd',function(data){
@@ -157,15 +143,6 @@ cc.Class({
                cc.director.loadScene('final');
             }
         });
-    },
-    // 显示成绩
-    showScore(){
-         cc.find('Canvas/headBox/player1/label').getComponent(cc.Label).string = cc.find('resident').getComponent('residentScript').player1Score.sum;
-         cc.find('Canvas/headBox/player2/label').getComponent(cc.Label).string = cc.find('resident').getComponent('residentScript').player2Score.sum;
-         cc.find('Canvas/headBox/player3/label').getComponent(cc.Label).string = cc.find('resident').getComponent('residentScript').player3Score.sum;
-         cc.find('Canvas/headBox/player4/label').getComponent(cc.Label).string = cc.find('resident').getComponent('residentScript').player4Score.sum;
-         cc.find('Canvas/headBox/player5/label').getComponent(cc.Label).string = cc.find('resident').getComponent('residentScript').player5Score.sum;
-         cc.find('Canvas/headBox/player6/label').getComponent(cc.Label).string = cc.find('resident').getComponent('residentScript').player6Score.sum;
     },
     // 是否创建金币
     checkPrefab(){

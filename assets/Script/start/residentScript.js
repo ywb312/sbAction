@@ -28,8 +28,6 @@ cc.Class({
 		this.player2 = {};
 		this.player3 = {};
 		this.player4 = {};
-		this.player5 = {};
-		this.player6 = {};
 		this.player1Score = {
 			once: 0,	//接到的数量
 			sum: 0,		//提交的金额
@@ -52,20 +50,6 @@ cc.Class({
 			silver: 0
 		};
 		this.player4Score = {
-			once: 0,
-			sum: 0,
-			coin: 0,
-			yb: 0,
-			silver: 0
-		};
-		this.player5Score = {
-			once: 0,
-			sum: 0,
-			coin: 0,
-			yb: 0,
-			silver: 0
-		};
-		this.player6Score = {
 			once: 0,
 			sum: 0,
 			coin: 0,
@@ -227,12 +211,6 @@ cc.Class({
 				break;
 			case 4:
 				this.player4 = this.userList[3];
-				break;
-			case 5:
-				this.player5 = this.userList[4];
-				break;
-			case 6:
-				this.player6 = this.userList[5];
 				break;
 			default:
 				break;

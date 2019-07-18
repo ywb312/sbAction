@@ -75,18 +75,6 @@ cc.Class({
                 this.fallMoney(cc.find('resident').getComponent('residentScript').player4Score.yb, this.yuanbao);
                 this.clearPlayerMoney(cc.find('resident').getComponent('residentScript').player4Score);
                 break;
-            case 5:
-                this.fallMoney(cc.find('resident').getComponent('residentScript').player5Score.coin, this.coin);
-                this.fallMoney(cc.find('resident').getComponent('residentScript').player5Score.silver, this.silver);
-                this.fallMoney(cc.find('resident').getComponent('residentScript').player5Score.yb, this.yuanbao);
-                this.clearPlayerMoney(cc.find('resident').getComponent('residentScript').player5Score);
-                break;
-            case 6:
-                this.fallMoney(cc.find('resident').getComponent('residentScript').player6Score.coin, this.coin);
-                this.fallMoney(cc.find('resident').getComponent('residentScript').player6Score.silver, this.silver);
-                this.fallMoney(cc.find('resident').getComponent('residentScript').player6Score.yb, this.yuanbao);
-                this.clearPlayerMoney(cc.find('resident').getComponent('residentScript').player6Score);
-                break;
         }
     },
     // 金币下落
@@ -116,7 +104,8 @@ cc.Class({
         this.setY = 0;
         this.pNode.destroyAllChildren();
         this.schedule(() => {
-            this.moveHead(num, type);
+            // this.moveHead(num,type);
+            cc.find('Canvas/bz/bz1/headBox').getComponent('scoreScript').change();
         }, 0.1, 4);
         // 上报此次得分
         let obj = {};
@@ -145,18 +134,6 @@ cc.Class({
                 obj.score = a.coin + a.silver*5 + a.yb*10;
                 this.clearPlayerMoney(cc.find('resident').getComponent('residentScript').player4Score);
                 break;
-            case 5:
-                var a = cc.find('resident').getComponent('residentScript').player5Score;
-                obj.id = cc.find('resident').getComponent('residentScript').player5.user.openid;
-                obj.score = a.coin + a.silver*5 + a.yb*10;
-                this.clearPlayerMoney(cc.find('resident').getComponent('residentScript').player5Score);
-                break;
-            case 6:
-                var a = cc.find('resident').getComponent('residentScript').player6Score;
-                obj.id = cc.find('resident').getComponent('residentScript').player6.user.openid;
-                obj.score = a.coin + a.silver*5 + a.yb*10;
-                this.clearPlayerMoney(cc.find('resident').getComponent('residentScript').player6Score);
-                break;
         }
         cc.find('resident').emit('upCoin',obj);
         if (this.count<=10) {
@@ -170,36 +147,35 @@ cc.Class({
     },
     // 移动到头像框
     moveHead(num, type) {
-        var move = new cc.Node;
-        move.addComponent(cc.Sprite);
-        switch (type) {
-            case 1:
-                move.getComponent(cc.Sprite).spriteFrame = this.coinPic;
-                move.width = 28;
-                move.height = 28;
-                break;
-            case 5:
-                move.getComponent(cc.Sprite).spriteFrame = this.silPic;
-                move.width = 34;
-                move.height = 28;
-                break;
-            case 10:
-                move.getComponent(cc.Sprite).spriteFrame = this.ybPic;
-                move.width = 50;
-                move.height = 40;
-                break;
-            default:
-                break;
-        }
-        cc.find('Canvas').addChild(move);
-        var x = cc.find('Canvas/bz/bz' + num).x;
-        var y = cc.find('Canvas/bz/bz' + num).y;
-        move.setPosition(x,y+25);
-        var headPos = cc.find('Canvas/headBox/player' + num).position;
-        move.runAction(cc.moveTo(0.8, headPos));
-        this.scheduleOnce(() => {
-            move.destroy();
-        }, 0.8);
-        cc.find('Canvas/control').getComponent('gameScript').showScore();
+        // var move = new cc.Node;
+        // move.addComponent(cc.Sprite);
+        // switch (type) {
+        //     case 1:
+        //         move.getComponent(cc.Sprite).spriteFrame = this.coinPic;
+        //         move.width = 28;
+        //         move.height = 28;
+        //         break;
+        //     case 5:
+        //         move.getComponent(cc.Sprite).spriteFrame = this.silPic;
+        //         move.width = 34;
+        //         move.height = 28;
+        //         break;
+        //     case 10:
+        //         move.getComponent(cc.Sprite).spriteFrame = this.ybPic;
+        //         move.width = 50;
+        //         move.height = 40;
+        //         break;
+        //     default:
+        //         break;
+        // }
+        // cc.find('Canvas').addChild(move);
+        // var x = cc.find('Canvas/bz/bz' + num).x;
+        // var y = cc.find('Canvas/bz/bz' + num).y;
+        // move.setPosition(x,y+25);
+        // var headPos = cc.find('Canvas/headBox/player' + num).position;
+        // move.runAction(cc.moveTo(0.8, headPos));
+        // this.scheduleOnce(() => {
+        //     move.destroy();
+        // }, 0.8);
     },
 }); 
