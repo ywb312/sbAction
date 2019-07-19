@@ -43,7 +43,7 @@ cc.Class({
             cc.find(str).active = true;
             // cc.find(str).runAction(cc.scaleTo(0.16,1,1.2));
             let timer = setInterval(()=>{
-                cc.find(str).height += 30;
+                cc.find(str).height += 50;
                 if (cc.find(str).height>=645) {
                     cc.find(str).height = 645;
                     clearInterval(timer);
@@ -63,10 +63,6 @@ cc.Class({
             data.h = cc.find(str).height;
             data.p = p;
             cc.find('resident').emit('upAnimals',data);
-            setTimeout(()=>{
-                cc.find(str).active = false;
-                cc.find(str).height = 120;
-            },2000);
         }
     },
     // 控制火球出来
@@ -106,10 +102,21 @@ cc.Class({
                 cc.find('Canvas/shenshou/plane/img3').active = true;
             },200);
         },200);
-        setTimeout(()=>{
-            cc.find('Canvas/shenshou/plane/img2').active = true;
-            cc.find('Canvas/shenshou/plane/img3').active = true;
-            cc.find('Canvas/shenshou/plane').active = true;
-        },2000)
     },
+    // 后台控制火线的关闭
+     hideLine(p){
+        if (p == 1) {
+            cc.find('Canvas/shenshou/fireLine/lineTop').active = false;
+            cc.find('Canvas/shenshou/fireLine/lineTop').height = 120;
+        }else if(p == 2){
+            cc.find('Canvas/shenshou/fireLine/lineBottom').active = false;
+            cc.find('Canvas/shenshou/fireLine/lineBottom').height = 120;
+        }
+    },
+    // 后台控制冰区关闭
+    hidePlane(){
+        cc.find('Canvas/shenshou/plane/img2').active = false;
+        cc.find('Canvas/shenshou/plane/img3').active = false;
+        cc.find('Canvas/shenshou/plane').active = false;
+    }
 });

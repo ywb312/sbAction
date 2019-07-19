@@ -118,8 +118,20 @@ cc.Class({
 			if(data.action == "got") {
 				cc.find('resident').emit('goEnd',data.data);
 			}
+			//跳转到付费
 			if(data.action == 'userpay') {
 				cc.find('resident').emit('moveToAgain',data.data);
+			}
+			// 关闭神兽火焰
+			if (data.action == 'animals') {
+				if (cc.find('Canvas/shenshou')!=null) {
+					if (data.data[0].end == 1) {
+						cc.find('Canvas/shenshou').getComponent('animalScript').hideLine(data.data[0].p);
+					}
+					if (data.data[0].bing == 0) {
+						cc.find('Canvas/shenshou').getComponent('animalScript').hidePlane();
+					}
+				}
 			}
 		};
 		webSocket.onclose = function() {

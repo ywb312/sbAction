@@ -196,7 +196,7 @@ cc.Class({
     // 生成神兽
     createShenshou(){
         let bol = 0;
-        // 每10s出现一次神兽
+        // 每5s出现一次神兽
         this.animalTimer = setInterval(()=>{
             switch (bol) {
                 case 0:
@@ -209,9 +209,7 @@ cc.Class({
                     break;
                 case 2:
                     cc.find('Canvas/shenshou').getComponent('animalScript').showPlane();
-                    bol = 3;
-                    break;
-                default:
+                    bol = 0;
                     break;
             }
         },5000);
