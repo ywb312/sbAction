@@ -104,7 +104,7 @@ cc.Class({
         },200);
     },
     // 后台控制火线的关闭
-     hideLine(p){
+    hideLine(p){
         if (p == 1) {
             cc.find('Canvas/shenshou/fireLine/lineTop').active = false;
             cc.find('Canvas/shenshou/fireLine/lineTop').height = 120;
