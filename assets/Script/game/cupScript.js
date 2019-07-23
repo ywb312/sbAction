@@ -7,11 +7,6 @@ cc.Class({
         },
         cupPic : cc.Node,
         headBoxType : cc.Node,
-        cupState : cc.Node,
-        stateList:{
-            default:[],
-            type: [cc.SpriteFrame],
-        },
         combo2:cc.SpriteFrame,
         combo3:cc.SpriteFrame,
         combo4:cc.SpriteFrame,
@@ -195,22 +190,6 @@ cc.Class({
             } else {
                 this.node.stopAllActions();
             }
-            // 杯子收到神兽的影响  0无效果   1火焰   2冰冻
-            // switch (obj.ss) {
-            //     case 0:
-            //         this.cupState.active = false;
-            //         break;
-            //     case 1:
-            //         this.cupState.active = true;
-            //         this.cupState.y = 0;
-            //         this.cupState.getComponent(cc.Sprite).spriteFrame = this.stateList[0];
-            //         break;
-            //     case 2:
-            //         this.cupState.active = true;
-            //         this.cupState.y = -10;
-            //         this.cupState.getComponent(cc.Sprite).spriteFrame = this.stateList[1];
-            //         break;
-            // }
             this.cupPic.getComponent(cc.Sprite).spriteFrame = list[obj.n];
         }
     },
