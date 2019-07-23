@@ -125,7 +125,7 @@ cc.Class({
 			// 关闭神兽火焰
 			if (data.action == 'animals') {
 				if (cc.find('Canvas/shenshou')!=null) {
-					if (data.data[0].end == 1) {
+					if (data.data[0].end == 0) {
 						cc.find('Canvas/shenshou').getComponent('animalScript').hideLine(data.data[0].p);
 					}
 					if (data.data[0].bing == 0) {
