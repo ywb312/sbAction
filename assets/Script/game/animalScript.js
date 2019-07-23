@@ -6,29 +6,28 @@ cc.Class({
     start () {
     },
     // 控制火线出来
-    showLine(t){
+    showLine(){
         // 显示火线
         let data = {
             type:1,
-            t,
             duration:2,
         }
         var targetNode = cc.find('Canvas/shenshou/fireLine');
         // 火线的展示方式
-        switch (t) {
-            case 1:
+        switch (Math.floor(Math.random()*3)) {
+            case 0:
                 onceShow('Canvas/shenshou/fireLine/lineTop',1);
                 setTimeout(()=>{
                     onceShow('Canvas/shenshou/fireLine/lineBottom',2);
                 },2000);
                 break;
-            case 2:
+            case 1:
                 onceShow('Canvas/shenshou/fireLine/lineBottom',2);
                 setTimeout(()=>{
                     onceShow('Canvas/shenshou/fireLine/lineTop',1);
                 },2000);
                 break;
-            case 3:
+            case 2:
                 onceShow('Canvas/shenshou/fireLine/lineTop',1);
                 onceShow('Canvas/shenshou/fireLine/lineBottom',2);
                 break;
@@ -92,7 +91,6 @@ cc.Class({
         targetNode.active = true;
         let data = {
             type:3,
-            t:5,
             duration:2,
         }
         data.a = {x:-286,y:-598};
@@ -107,7 +105,7 @@ cc.Class({
         },200);
     },
     // 后台控制火线的关闭
-     hideLine(p){
+    hideLine(p){
         if (p == 1) {
             cc.find('Canvas/shenshou/fireLine/lineTop').active = false;
             cc.find('Canvas/shenshou/fireLine/lineTop').height = 120;
