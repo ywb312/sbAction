@@ -20,6 +20,7 @@ cc.Class({
             let playerId = other.node.getComponent('cupScript').openid;
             let data = {
                 type : 2,
+                t:4,
                 openid : playerId
             }
             self.node.destroy();

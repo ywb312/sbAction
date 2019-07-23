@@ -125,11 +125,25 @@ cc.Class({
 			// 关闭神兽火焰
 			if (data.action == 'animals') {
 				if (cc.find('Canvas/shenshou')!=null) {
-					if (data.data[0].end == 1) {
-						cc.find('Canvas/shenshou').getComponent('animalScript').hideLine(data.data[0].p);
-					}
-					if (data.data[0].bing == 0) {
-						cc.find('Canvas/shenshou').getComponent('animalScript').hidePlane();
+					if (data.data[0].type <= 3) {
+						if (data.data[0].end == 0) {
+							// 关闭火线
+							cc.find('Canvas/shenshou').getComponent('animalScript').hideLine(data.data[0].p);
+						}else{
+							// 打开火线
+							cc.find('Canvas/shenshou').getComponent('animalScript').showLine(data.data[0].type);
+						}
+					}else if(data.data[0].type == 4){
+						// 打开火球
+						cc.find('Canvas/shenshou').getComponent('animalScript').showBall();
+					}else if(data.data[0].type == 5){
+						if (data.data[0].bing == 0) {
+							// 关闭冰区
+							cc.find('Canvas/shenshou').getComponent('animalScript').hidePlane();
+						}else{
+							// 打开冰区
+							cc.find('Canvas/shenshou').getComponent('animalScript').showPlane();
+						}
 					}
 				}
 			}
