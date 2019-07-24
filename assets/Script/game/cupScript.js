@@ -7,6 +7,11 @@ cc.Class({
         },
         cupPic : cc.Node,
         headBoxType : cc.Node,
+        cupState : cc.Node,
+        stateList:{
+            default:[],
+            type: [cc.SpriteFrame],
+        },
         combo2:cc.SpriteFrame,
         combo3:cc.SpriteFrame,
         combo4:cc.SpriteFrame,
@@ -102,6 +107,7 @@ cc.Class({
     },
     // 每次收到users都会调用     设置位置切换图片
     setCupPosition(i,obj){
+        // 新加参数到resident里面添加
         if (i == this.num) {
             this.openid = obj.user.openid;
             //每次碰撞变成
@@ -184,11 +190,27 @@ cc.Class({
                 default:
                     break;
             }
-            //由复活保护罩的显示 改为 抖动动画          无敌
+            // //由复活保护罩的显示 改为 抖动动画          无敌
             if (obj.t == 1 || obj.d == 1){
                 this.node.runAction(this.shakeAction);
             } else {
                 this.node.stopAllActions();
+            }
+            // 杯子收到神兽的影响  0无效果   1火焰   2冰冻
+            switch (obj.g) {
+                case 0:
+                    this.cupState.active = false;
+                    break;
+                case 1:
+                    this.cupState.active = true;
+                    this.cupState.y = 0;
+                    this.cupState.getComponent(cc.Sprite).spriteFrame = this.stateList[0];
+                    break;
+                case 2:
+                    this.cupState.active = true;
+                    this.cupState.y = -10;
+                    this.cupState.getComponent(cc.Sprite).spriteFrame = this.stateList[1];
+                    break;
             }
             this.cupPic.getComponent(cc.Sprite).spriteFrame = list[obj.n];
         }
