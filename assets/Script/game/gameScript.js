@@ -196,6 +196,7 @@ cc.Class({
     // 生成神兽
     createShenshou(){
         let bol = 0;
+        let timer = 5;
         // 每5s出现一次神兽
         this.animalTimer = setInterval(()=>{
             switch (bol) {
@@ -212,7 +213,8 @@ cc.Class({
                     bol = 0;
                     break;
             }
-        },5000);
+            timer = Math.floor(Math.random()*7+4)
+        },timer*1000);
     },
     onDestroy(){
         clearTimeout(this.pengTimer);

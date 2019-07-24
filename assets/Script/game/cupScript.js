@@ -84,20 +84,19 @@ cc.Class({
             }
         },300);
         // 抖动动画
-        this.shakeAction = cc.repeatForever(
-            cc.sequence(
-                cc.rotateTo(0.05,-3),
-                cc.rotateTo(0.05,0),
-                cc.rotateTo(0.05,3),
-                cc.rotateTo(0.05,-3),
-                cc.rotateTo(0.05,0),
-                cc.rotateTo(0.05,3),
-                cc.rotateTo(0.05,-3),
-                cc.rotateTo(0.05,0),
-                cc.rotateTo(0.05,3),
-                cc.rotateTo(0.05,0),
-            )
+        this.shakeAction = cc.sequence(
+            cc.rotateTo(0.05,-3),
+            cc.rotateTo(0.05,0),
+            cc.rotateTo(0.05,3),
+            cc.rotateTo(0.05,-3),
+            cc.rotateTo(0.05,0),
+            cc.rotateTo(0.05,3),
+            cc.rotateTo(0.05,-3),
+            cc.rotateTo(0.05,0),
+            cc.rotateTo(0.05,3),
+            cc.rotateTo(0.05,0),
         );
+        
         this.comboTimer = null;
         this.coinTimer = null;
     },
@@ -109,6 +108,7 @@ cc.Class({
     setCupPosition(i,obj){
         // 新加参数到resident里面添加
         if (i == this.num) {
+            console.log(obj.n);
             this.openid = obj.user.openid;
             //每次碰撞变成
             this.tool  = obj.tool;
@@ -142,6 +142,7 @@ cc.Class({
                     this.node.getComponents(cc.BoxCollider)[2].size.width = 55;
                     this.headBoxType.getComponent(cc.Sprite).spriteFrame = this.headBox[0];
                     if (obj.n == 3) {
+                        this.node.runAction(this.shakeAction);
                         cc.find('Canvas/bz/bz'+i+'/mid').getComponent('cupAddCoinScript').boomNone();
                     }
                     break;
@@ -156,6 +157,7 @@ cc.Class({
                     this.node.getComponents(cc.BoxCollider)[2].size.width = 50;
                     this.headBoxType.getComponent(cc.Sprite).spriteFrame = this.headBox[1];
                     if (obj.n == 3) {
+                        this.node.runAction(this.shakeAction);
                         cc.find('Canvas/bz/bz'+i+'/mid').getComponent('cupAddCoinScript').boomNone();
                     }
                     break;
@@ -170,6 +172,7 @@ cc.Class({
                     this.node.getComponents(cc.BoxCollider)[2].size.width = 44;
                     this.headBoxType.getComponent(cc.Sprite).spriteFrame = this.headBox[2];
                     if (obj.n == 3) {
+                        this.node.runAction(this.shakeAction);
                         cc.find('Canvas/bz/bz'+i+'/mid').getComponent('cupAddCoinScript').boomNone();
                     }
                     break;
@@ -191,11 +194,11 @@ cc.Class({
                     break;
             }
             // //由复活保护罩的显示 改为 抖动动画          无敌
-            if (obj.t == 1 || obj.d == 1){
-                this.node.runAction(this.shakeAction);
-            } else {
-                this.node.stopAllActions();
-            }
+            // if (obj.t == 1 || obj.d == 1){
+            //     this.node.runAction(this.shakeAction);
+            // } else {
+            //     this.node.stopAllActions();
+            // }
             // 杯子收到神兽的影响  0无效果   1火焰   2冰冻
             switch (obj.g) {
                 case 0:

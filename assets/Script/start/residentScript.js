@@ -92,7 +92,7 @@ cc.Class({
 			clearTimeout(obj.leaveTimer);
 			obj.leaveTimer = setTimeout(()=>{
 				obj.fenPinEndGame();
-			},16000);
+			},100000);
 			var data = JSON.parse(val.data);
 			if(data.action == "open") {
 				console.log('openWS!');
