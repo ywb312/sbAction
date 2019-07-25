@@ -210,6 +210,7 @@ cc.Class({
 					this.userList[j].ck = data[i].ck;
 					this.userList[j].d = data[i].d;
 					this.userList[j].g = data[i].g;
+					this.userList[j].tool = data[i].tool;
 				}
 			}
 		}

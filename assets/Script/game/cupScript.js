@@ -96,7 +96,6 @@ cc.Class({
             cc.rotateTo(0.05,3),
             cc.rotateTo(0.05,0),
         );
-        
         this.comboTimer = null;
         this.coinTimer = null;
     },
@@ -131,7 +130,7 @@ cc.Class({
             //  筛选出使用哪个数组 
             //  道具随机生成
             switch (obj.tool) {
-                case 0:     //杯子  碰撞体位置
+                case "100":     //杯子  碰撞体位置
                     list = this.tool1;
                     this.node.getComponents(cc.BoxCollider)[0].offset = cc.v2(-8,20);
                     this.node.getComponents(cc.BoxCollider)[0].size.width = 50;
@@ -164,33 +163,31 @@ cc.Class({
                 case "300":     //茅台  碰撞体位置
                     list = this.tool3;
                     this.node.getComponents(cc.BoxCollider)[0].offset = cc.v2(-5,20);
-                    this.node.getComponents(cc.BoxCollider)[0].size.width = 44;
+                    this.node.getComponents(cc.BoxCollider)[0].size.width = 50;
                     this.node.getComponents(cc.BoxCollider)[1].offset = cc.v2(-5,-25);
-                    this.node.getComponents(cc.BoxCollider)[1].size.width = 44;
+                    this.node.getComponents(cc.BoxCollider)[1].size.width = 50;
                     this.node.getComponents(cc.BoxCollider)[1].size.height = 60;
                     this.node.getComponents(cc.BoxCollider)[2].offset = cc.v2(-5,60);
-                    this.node.getComponents(cc.BoxCollider)[2].size.width = 44;
+                    this.node.getComponents(cc.BoxCollider)[2].size.width = 50;
                     this.headBoxType.getComponent(cc.Sprite).spriteFrame = this.headBox[2];
                     if (obj.n == 3) {
                         this.node.runAction(this.shakeAction);
                         cc.find('Canvas/bz/bz'+i+'/mid').getComponent('cupAddCoinScript').boomNone();
                     }
                     break;
-                // case "":      // 碗  碰撞体位置
-                //     list = tool4;
-                //     this.node.getComponents(cc.BoxCollider)[0].offset = cc.v2(0,-15);
-                //     this.node.getComponents(cc.BoxCollider)[0].size.width = 90;
-                //     this.node.getComponents(cc.BoxCollider)[1].offset = cc.v2(0,-37);
-                //     this.node.getComponents(cc.BoxCollider)[1].size.width = 90;
-                //     this.node.getComponents(cc.BoxCollider)[1].size.height = 36;
-                //     this.node.getComponents(cc.BoxCollider)[2].offset = cc.v2(0,-60);
-                //     this.node.getComponents(cc.BoxCollider)[2].size.width = 50;
-                //     this.headBoxType.getComponent(cc.Sprite).spriteFrame = this.headBox[3];
-                //     if (obj.n == 3) {
-                //         cc.find('Canvas/bz/bz'+i+'/mid').getComponent('cupAddCoinScript').boomNone();
-                //     }
-                //     break;
-                default:
+                case "400":      // 碗  碰撞体位置
+                    list = this.tool4;
+                    this.node.getComponents(cc.BoxCollider)[0].offset = cc.v2(0,-15);
+                    this.node.getComponents(cc.BoxCollider)[0].size.width = 90;
+                    this.node.getComponents(cc.BoxCollider)[1].offset = cc.v2(0,-37);
+                    this.node.getComponents(cc.BoxCollider)[1].size.width = 90;
+                    this.node.getComponents(cc.BoxCollider)[1].size.height = 36;
+                    this.node.getComponents(cc.BoxCollider)[2].offset = cc.v2(0,-60);
+                    this.node.getComponents(cc.BoxCollider)[2].size.width = 50;
+                    this.headBoxType.getComponent(cc.Sprite).spriteFrame = this.headBox[3];
+                    if (obj.n == 3) {
+                        cc.find('Canvas/bz/bz'+i+'/mid').getComponent('cupAddCoinScript').boomNone();
+                    }
                     break;
             }
             // //由复活保护罩的显示 改为 抖动动画          无敌
