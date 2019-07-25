@@ -31,14 +31,14 @@ cc.Class({
             if (pos.y<=30) {
                 this.setY = -this.setY;
                 this.node.y-=this.setY/2;
-            } else if (pos.y>=1080 && allow==1) {
+            } else if (pos.y>=1290 && allow==1) {
                 this.setY = -this.setY;
                 this.node.y-=this.setY/2;
             }
             this.setY += ay;
             this.node.x-=this.setX;
             this.node.y-=this.setY;
-            if (pos.y<-60 || pos.x <=2500 || pos.x>=3410) {
+            if (pos.y<-60 || pos.x <=2550 || pos.x>=3600) {
                 this.node.parent.destroy();
                 cc.find('Canvas/control').getComponent('gameScript').checkPrefab();
             }

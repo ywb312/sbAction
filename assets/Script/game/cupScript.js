@@ -217,31 +217,30 @@ cc.Class({
     },
     // 监听碰撞
     onCollisionEnter:function(other,self){
-        // 只有接收到金币才会显示
-        if (other.node.group == 'coin') {
-            if (self.tag == 1) {
-                this.getCoin(other,1);
-            }else if(self.tag == 2){
+        if(self.tag==1){
+            switch (other.node.group) {
+                case 'coin':
+                    this.getCoin(other,1);
+                    break;
+                case 'silver':
+                    this.getCoin(other,5);
+                    break;
+                case 'yuanbao':
+                    this.getCoin(other,10);
+                    break;
+            }
+        }else if(self.tag == 2){
+            if (other.node.group == 'coin') {
                 other.node.getComponent('coinScript').coinCrash("x");
-            }else if(self.tag == 3){
+            }
+            if (other.node.group == 'silver' || other.node.group == 'yuanbao') {
+                other.node.getComponent('ybScript').coinCrash("x");
+            }
+        }else if(self.tag == 3){
+            if (other.node.group == 'coin') {
                 other.node.getComponent('coinScript').coinCrash("y");
             }
-        }
-        if (other.node.group == 'silver') {
-            if (self.tag==1) {
-                this.getCoin(other,5);
-            }else if(self.tag == 2){
-                other.node.getComponent('ybScript').coinCrash("x");
-            }else if(self.tag == 3){
-                other.node.getComponent('ybScript').coinCrash("y");
-            }
-        }
-        if (other.node.group == 'yuanbao') {
-            if (self.tag==1) {
-                this.getCoin(other,10);
-            }else if(self.tag == 2){
-                other.node.getComponent('ybScript').coinCrash("x");
-            }else if(self.tag == 3){
+            if (other.node.group == 'silver' || other.node.group == 'yuanbao') {
                 other.node.getComponent('ybScript').coinCrash("y");
             }
         }
@@ -301,15 +300,20 @@ cc.Class({
         switch(type){
             case 1:
                 score.coin++;
+                score.now += 1;
                 break;
             case 5:
                 score.silver++;
+                score.now += 5;
                 break;
             case 10:
                 score.yb++;
+                score.now += 10;
                 break;
         }
         score.once++;
+        //更新成绩
+        cc.find('Canvas/bz/bz1/headBox').getComponent('scoreScript').change();
         // 杯中金币数量
         if (score.once<5) { //不到5个
             // 不执行杯中金币

@@ -29,7 +29,7 @@ cc.Class({
             if (pos.y<=30) {
                 this.setY = -this.setY;
                 this.node.y-=this.setY/2;
-            } else if (pos.y>=1080 && allow==1) {
+            } else if (pos.y>=1280 && allow==1) {
                 this.setY = -this.setY;
                 this.node.y-=this.setY/2;
             }

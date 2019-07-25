@@ -103,10 +103,10 @@ cc.Class({
         this.count++;
         this.setY = 0;
         this.pNode.destroyAllChildren();
-        this.schedule(() => {
-            // this.moveHead(num,type);
-            cc.find('Canvas/bz/bz1/headBox').getComponent('scoreScript').change();
-        }, 0.1, 4);
+        // this.schedule(() => {
+        //     this.moveHead(num,type);
+        //     更新成绩
+        // }, 0.1, 4);
         // 上报此次得分
         let obj = {};
         switch (num) {

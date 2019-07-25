@@ -6,7 +6,7 @@ cc.Class({
         // 设定火球的一定范围及运动轨迹(反弹) 07-12取消回弹
         this.schedule(function(){
             var pos = this.node.convertToWorldSpaceAR(cc.find('Canvas/shenshou').position);//3352 1148  //3800 1148 
-            if (pos.x<=2700 || pos.y<=30) {
+            if (pos.x<=2700 || pos.y<=0) {
                 this.node.destroy();
             }
             this.node.x-=setX;

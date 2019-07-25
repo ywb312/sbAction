@@ -30,31 +30,35 @@ cc.Class({
 		this.player4 = {};
 		this.player1Score = {
 			once: 0,	//接到的数量
-			sum: 0,		//提交的金额
-			coin: 0,
+			sum: 0,		//提交的金额(接到5个更新)
+			coin: 0,	//三种货币
 			yb: 0,
-			silver: 0
+			silver: 0,
+			now:0		//实时更新的总额
 		};
 		this.player2Score = {
 			once: 0,
 			sum: 0,
 			coin: 0,
 			yb: 0,
-			silver: 0
+			silver: 0,
+			now:0
 		};
 		this.player3Score = {
 			once: 0,
 			sum: 0,
 			coin: 0,
 			yb: 0,
-			silver: 0
+			silver: 0,
+			now:0
 		};
 		this.player4Score = {
 			once: 0,
 			sum: 0,
 			coin: 0,
 			yb: 0,
-			silver: 0
+			silver: 0,
+			now:0
 		};
 		this.roomId = this.getUrlParam('rid');
 		this.pttoken = this.getUrlParam('pttoken');
