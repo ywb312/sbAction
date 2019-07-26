@@ -133,7 +133,7 @@ cc.Class({
                 case "100":     //杯子  碰撞体位置
                     list = this.tool1;
                     this.node.getComponents(cc.BoxCollider)[0].offset = cc.v2(-8,20);
-                    this.node.getComponents(cc.BoxCollider)[0].size.width = 50;
+                    this.node.getComponents(cc.BoxCollider)[0].size.width = 60;
                     this.node.getComponents(cc.BoxCollider)[1].offset = cc.v2(-8,-16);
                     this.node.getComponents(cc.BoxCollider)[1].size.width = 55;
                     this.node.getComponents(cc.BoxCollider)[1].size.height = 65;
@@ -147,8 +147,8 @@ cc.Class({
                     break;
                 case "200":     // 啤酒瓶   碰撞体位置
                     list = this.tool2;
-                    this.node.getComponents(cc.BoxCollider)[0].offset = cc.v2(0,14);
-                    this.node.getComponents(cc.BoxCollider)[0].size.width = 50;
+                    this.node.getComponents(cc.BoxCollider)[0].offset = cc.v2(0,18);
+                    this.node.getComponents(cc.BoxCollider)[0].size.width = 60;
                     this.node.getComponents(cc.BoxCollider)[1].offset = cc.v2(0,-25);
                     this.node.getComponents(cc.BoxCollider)[1].size.width = 50;
                     this.node.getComponents(cc.BoxCollider)[1].size.height = 60;
@@ -162,8 +162,8 @@ cc.Class({
                     break;
                 case "300":     //茅台  碰撞体位置
                     list = this.tool3;
-                    this.node.getComponents(cc.BoxCollider)[0].offset = cc.v2(-5,20);
-                    this.node.getComponents(cc.BoxCollider)[0].size.width = 50;
+                    this.node.getComponents(cc.BoxCollider)[0].offset = cc.v2(-4,24);
+                    this.node.getComponents(cc.BoxCollider)[0].size.width = 60;
                     this.node.getComponents(cc.BoxCollider)[1].offset = cc.v2(-5,-25);
                     this.node.getComponents(cc.BoxCollider)[1].size.width = 50;
                     this.node.getComponents(cc.BoxCollider)[1].size.height = 60;
