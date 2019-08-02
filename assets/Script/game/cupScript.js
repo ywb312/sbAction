@@ -107,7 +107,6 @@ cc.Class({
     setCupPosition(i,obj){
         // 新加参数到resident里面添加
         if (i == this.num) {
-            console.log(obj.n);
             this.openid = obj.user.openid;
             //每次碰撞变成
             this.tool  = obj.tool;
