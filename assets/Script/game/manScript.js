@@ -15,14 +15,14 @@ cc.Class({
     run(){
         cc.find("Canvas/yunLow/man/man1").active=false;
         cc.find("Canvas/yunLow/man/man2").active=true;
-        this.scheduleOnce(()=>{
-            cc.find("Canvas/yunLow/man/man2").active=false;
-            cc.find("Canvas/yunLow/man/man3").active=true;
-        },0.15);
-        this.scheduleOnce(()=>{
-            cc.find("Canvas/yunLow/man/man3").active=false;
-            cc.find("Canvas/yunLow/man/man4").active=true;
-        },0.3);
+        // this.scheduleOnce(()=>{
+        //     cc.find("Canvas/yunLow/man/man2").active=false;
+        //     cc.find("Canvas/yunLow/man/man3").active=true;
+        // },0.15);
+        // this.scheduleOnce(()=>{
+        //     cc.find("Canvas/yunLow/man/man3").active=false;
+        //     cc.find("Canvas/yunLow/man/man4").active=true;
+        // },0.3);
         this.scheduleOnce(()=>{
             this.stop();
         },1);

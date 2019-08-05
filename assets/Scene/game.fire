@@ -41,8 +41,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.3414001464843749,
-      "y": 0.3414001464843749,
+      "x": 0.3414001464843748,
+      "y": 0.3414001464843748,
       "z": 1
     },
     "_quat": {
@@ -1979,7 +1979,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "906810ac-32fb-4a0a-acc0-7cc3084b33b6"
+      "__uuid__": "0637bac2-d93e-4367-95c2-f662c0070f4c"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -2068,7 +2068,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "dbbf7dab-d751-47a1-a13a-ec63bb89d960"
+      "__uuid__": "5a3cd9bc-f072-4769-97d8-0feef30dfd07"
     },
     "_type": 0,
     "_sizeMode": 0,

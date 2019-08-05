@@ -124,10 +124,13 @@ cc.Class({
                 }
                 // 定时关闭阵亡信息
                 clearTimeout(_self.pengTimer);
+                clearTimeout(_self.boomTimer);
                 _self.pengTimer = setTimeout(()=>{
                     cc.find('Canvas/background/text').active = false;
-                    cc.find('Canvas/background/boom').active = false;
                 },1500);
+                _self.boomTimer = setTimeout(()=>{
+                    cc.find('Canvas/background/boom').active = false;
+                },500);
             }
         });
         cc.find('resident').on('userLeave',function(){
@@ -214,6 +217,7 @@ cc.Class({
     },
     onDestroy(){
         clearTimeout(this.pengTimer);
+        clearTimeout(this.boomTimer);
         clearTimeout(this.checkTime);
         clearInterval(this.animalTimer);
         clearInterval(this.fallTimer1);
