@@ -112,25 +112,25 @@ cc.Class({
         switch (num) {
             case 1:
                 var a = cc.find('resident').getComponent('residentScript').player1Score;
-                obj.id = cc.find('resident').getComponent('residentScript').player1.user.openid;
+                obj.id = cc.find('resident').getComponent('residentScript').player1Score.person.user.openid;
                 obj.score = a.coin + a.silver*5 + a.yb*10;
                 this.clearPlayerMoney(cc.find('resident').getComponent('residentScript').player1Score);
                 break;
             case 2:
                 var a = cc.find('resident').getComponent('residentScript').player2Score;
-                obj.id = cc.find('resident').getComponent('residentScript').player2.user.openid;
+                obj.id = cc.find('resident').getComponent('residentScript').player2Score.person.user.openid;
                 obj.score = a.coin + a.silver*5 + a.yb*10;
                 this.clearPlayerMoney(cc.find('resident').getComponent('residentScript').player2Score);
                 break;
             case 3:
                 var a = cc.find('resident').getComponent('residentScript').player3Score;
-                obj.id = cc.find('resident').getComponent('residentScript').player3.user.openid;
+                obj.id = cc.find('resident').getComponent('residentScript').player3Score.person.user.openid;
                 obj.score = a.coin + a.silver*5 + a.yb*10;
                 this.clearPlayerMoney(cc.find('resident').getComponent('residentScript').player3Score);
                 break;
             case 4:
                 var a = cc.find('resident').getComponent('residentScript').player4Score;
-                obj.id = cc.find('resident').getComponent('residentScript').player4.user.openid;
+                obj.id = cc.find('resident').getComponent('residentScript').player4Score.person.user.openid;
                 obj.score = a.coin + a.silver*5 + a.yb*10;
                 this.clearPlayerMoney(cc.find('resident').getComponent('residentScript').player4Score);
                 break;
@@ -146,7 +146,7 @@ cc.Class({
         }
     },
     // 移动到头像框
-    moveHead(num, type) {
+    // moveHead(num, type) {
         // var move = new cc.Node;
         // move.addComponent(cc.Sprite);
         // switch (type) {
@@ -177,5 +177,5 @@ cc.Class({
         // this.scheduleOnce(() => {
         //     move.destroy();
         // }, 0.8);
-    },
+    // },
 }); 

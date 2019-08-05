@@ -23,11 +23,7 @@ cc.Class({
 		this.fee = 0;
 		//离开定时器
 		this.leaveTimer = null;
-		// 玩家信息
-		this.player1 = {};
-		this.player2 = {};
-		this.player3 = {};
-		this.player4 = {};
+		// 玩家信息及分数
 		this.player1Score = {
 			once: 0,	//接到的数量
 			sum: 0,		//提交的金额(接到5个更新)
@@ -199,8 +195,11 @@ cc.Class({
 			this.userList.push(data);
 		}
 		cc.find('resident').emit('startGame', data);
+		if(cc.find("Canvas/fall")!=null){
+			cc.find('Canvas/bz/bz1/headBox').getComponent('scoreScript').change();
+		}
 	},
-	// 玩家的位置信息 (替换属性)收到users前 必收到start
+	// 玩家的位置信息 (替换属性)收到users前 必收到start  收到users只是将数据进行更新
 	everyOne(data) {
 		// 不可能为空
 		for(let j = 0; j < this.userList.length; j++) {
@@ -220,16 +219,16 @@ cc.Class({
 		}
 		switch(this.userList.length) {
 			case 1:
-				this.player1 = this.userList[0];
+				this.player1Score.person = this.userList[0];
 				break;
 			case 2:
-				this.player2 = this.userList[1];
+				this.player2Score.person = this.userList[1];
 				break;
 			case 3:
-				this.player3 = this.userList[2];
+				this.player3Score.person = this.userList[2];
 				break;
 			case 4:
-				this.player4 = this.userList[3];
+				this.player4Score.person = this.userList[3];
 				break;
 			default:
 				break;
@@ -241,9 +240,32 @@ cc.Class({
 		// 删除操作
 		for(let i = 0; i < this.userList.length; i++) {
 			if(data.openid == this.userList[i].user.openid) {
-				this.userList.splice(i, 1); 
+				this.userList.splice(i,1); 
+				switch (i) {
+					case 0:
+						initObj(this.player1Score);
+						break;
+					case 1:
+						initObj(this.player2Score);
+						break;
+					case 2:
+						initObj(this.player3Score);
+						break;
+					case 3:
+						initObj(this.player4Score);
+						break;
+				}
+				// 取消杯子显示效果
 				cc.find('resident').emit('userLeave', this.userList);
 			} 
+		}
+		function initObj(obj){
+			obj.once = 0;
+			obj.sum = 0;
+			obj.coin = 0;
+			obj.yb = 0;
+			obj.silver = 0;
+			obj.now = 0;
 		}
 	},
 	// 连接分屏

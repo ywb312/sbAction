@@ -77,7 +77,7 @@ cc.Class({
             if (cc.find('Canvas/bz/bz1')!=null) {
                 _self.num = 5 * data.length;
                 for (let i = 0; i < data.length; i++) {
-                    if (data[i].user.avatar!=undefined) {
+                    if (data[i].user.avatar!=undefined && cc.find('Canvas/bz/bz1')!=null) {
                         let j = i + 1;
                         // 头像加载
                         cc.loader.load({url:data[i].user.avatar,type:'jpg'},function(err,ttt){
@@ -127,7 +127,7 @@ cc.Class({
                 _self.pengTimer = setTimeout(()=>{
                     cc.find('Canvas/background/text').active = false;
                     cc.find('Canvas/background/boom').active = false;
-                },800);
+                },1500);
             }
         });
         cc.find('resident').on('userLeave',function(){
@@ -195,22 +195,18 @@ cc.Class({
     },
     // 生成神兽
     createShenshou(){
-        let bol = 0;
         let timer = 5;
         // 每5s出现一次神兽
         this.animalTimer = setInterval(()=>{
-            switch (bol) {
+            switch (Math.floor(Math.random()*3)) {
                 case 0:
                     cc.find('Canvas/shenshou').getComponent('animalScript').showLine();
-                    bol = 1;
                     break;
                 case 1:
                     cc.find('Canvas/shenshou').getComponent('animalScript').showBall();
-                    bol = 2;
                     break;
                 case 2:
                     cc.find('Canvas/shenshou').getComponent('animalScript').showPlane();
-                    bol = 0;
                     break;
             }
             timer = Math.floor(Math.random()*7+4)
