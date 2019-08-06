@@ -83,7 +83,7 @@ cc.Class({
     showBall(){
         var targetNode = cc.find('Canvas/shenshou/rightTop/ball');
         var x = 21;
-        var y = 12;
+        var y = 14;
         cc.find('Canvas/shenshou/rightTop').stopAction(this.rotateRT);
         // 创建3个火球
         for (let i = 0; i < 3 ; i++) {
@@ -95,8 +95,9 @@ cc.Class({
             }
             newPrefab.getComponent('fireBallScript').move(x,y);
             newPrefab.position = a;
-            x -= 4;
-            y += 4;
+            // 调整开口角度(三个火球之间的角度)
+            x -= 8;
+            y += 8;
         }
         setTimeout(()=>{
             cc.find('Canvas/shenshou/rightTop').runAction(this.rotateRT);

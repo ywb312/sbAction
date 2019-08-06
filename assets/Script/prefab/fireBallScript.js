@@ -3,21 +3,19 @@ cc.Class({
     properties: {
     },
     move (setX,setY) {
+        let bol = true;
         // 设定火球的一定范围及运动轨迹(反弹) 07-12取消回弹
         this.schedule(function(){
             var pos = this.node.convertToWorldSpaceAR(cc.find('Canvas/shenshou').position);//3352 1148  //3800 1148 
-            // if (pos.x>=4200 || pos.y<=0) {
-            //     this.node.destroy();
-            // }
-            if(pos.x<=2900){
-                setX=-setX;
+            if (pos.x>=4500 || pos.y<=-200) {
+                this.node.destroy();
             }
-            pos.x-=setX;
-            pos.y-=setY;
-            console.log(pos);
-            var final = this.node.parent.convertToNodeSpaceAR(pos);
-            console.log(final)
-            this.node.setPosition(final);
+            if(pos.x<=3100 && bol){
+                setX = -setX;
+                bol = false;
+            }
+            this.node.x-=setX;
+            this.node.y-=setY;
         },0.04);
     },
     // 监听碰撞
