@@ -6,14 +6,18 @@ cc.Class({
         // 设定火球的一定范围及运动轨迹(反弹) 07-12取消回弹
         this.schedule(function(){
             var pos = this.node.convertToWorldSpaceAR(cc.find('Canvas/shenshou').position);//3352 1148  //3800 1148 
-            if (pos.x>=4200 || pos.y<=-60) {
-                this.node.destroy();
-            }
-            if (pos.x<=2700) {
+            // if (pos.x>=4200 || pos.y<=0) {
+            //     this.node.destroy();
+            // }
+            if(pos.x<=2900){
                 setX=-setX;
             }
-            this.node.x-=setX;
-            this.node.y-=setY;
+            pos.x-=setX;
+            pos.y-=setY;
+            console.log(pos);
+            var final = this.node.parent.convertToNodeSpaceAR(pos);
+            console.log(final)
+            this.node.setPosition(final);
         },0.04);
     },
     // 监听碰撞
