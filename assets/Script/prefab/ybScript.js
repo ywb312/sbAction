@@ -18,10 +18,10 @@ cc.Class({
                 allow = 1;
             }
             // 设定区域 x轴
-            if (pos.x<=2720) {
+            if (pos.x<=10) {
                 this.setX = -this.setX;
                 this.node.x-=this.setX/2;
-            }else if (pos.x>=3440) {
+            }else if (pos.x>=740) {
                 this.setX = -this.setX;
                 this.node.x-=this.setX/2;
             }
@@ -36,7 +36,7 @@ cc.Class({
             this.setY += ay;
             this.node.x-=this.setX;
             this.node.y-=this.setY;
-            if (pos.y<-60 || pos.x <=2600 || pos.x>=3500) {
+            if (pos.y<-60 || pos.x <=-150 || pos.x>=900) {
                 this.node.parent.destroy();
                 cc.find('Canvas/control').getComponent('gameScript').checkPrefab();
             }

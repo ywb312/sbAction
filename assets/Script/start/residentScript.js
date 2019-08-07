@@ -271,7 +271,6 @@ cc.Class({
 	// 连接分屏
 	kmWs() {
 		let barcode = "";
-		startGameToScreen();
 		window.addEventListener("message", function(e) {
 			var data = JSON.parse(e.data)
 			var source = e.source
@@ -286,16 +285,6 @@ cc.Class({
 				console.log('收到KM心跳响应');
 			}
 		});
-		function startGameToScreen(){
-			window.parent.postMessage(JSON.stringify({
-				"cmdid" : "setArea",
-				"sessionid" : "",
-				"data" : {
-					'area' : '0,0,1280,720',
-					'mvarea' : '0,96,900,528',
-				},
-			}), '*');
-		}
 		function sendKeepAlive() {
 			window.parent.postMessage(JSON.stringify({
 				"cmdid": "keepAlive",

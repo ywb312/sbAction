@@ -17,7 +17,7 @@ cc.Class({
         this.setY = 0;
         this.count = 0;
     },
-    //创建杯中金币
+    //创建杯中金币      不被执行
     createCoin(type) {
         var coin = new cc.Node;
         coin.addComponent(cc.Sprite);
@@ -44,7 +44,7 @@ cc.Class({
         this.setY += 8;
         coin.setPosition(Math.floor(Math.random() * 19) - 9, this.setY - 10);
     },
-    // 杯子碰碎执行
+    // 杯子碰碎执行 目前清空杯中的成绩
     boomNone() {
         this.count = 0;
         // 杯子缩放默认1.5
@@ -52,27 +52,27 @@ cc.Class({
         // 获取货币数量
         switch (this.person) {
             case 1:
-                this.fallMoney(cc.find('resident').getComponent('residentScript').player1Score.coin, this.coin);
-                this.fallMoney(cc.find('resident').getComponent('residentScript').player1Score.silver, this.silver);
-                this.fallMoney(cc.find('resident').getComponent('residentScript').player1Score.yb, this.yuanbao);
+                // this.fallMoney(cc.find('resident').getComponent('residentScript').player1Score.coin, this.coin);
+                // this.fallMoney(cc.find('resident').getComponent('residentScript').player1Score.silver, this.silver);
+                // this.fallMoney(cc.find('resident').getComponent('residentScript').player1Score.yb, this.yuanbao);
                 this.clearPlayerMoney(cc.find('resident').getComponent('residentScript').player1Score);
                 break;
             case 2:
-                this.fallMoney(cc.find('resident').getComponent('residentScript').player2Score.coin, this.coin);
-                this.fallMoney(cc.find('resident').getComponent('residentScript').player2Score.silver, this.silver);
-                this.fallMoney(cc.find('resident').getComponent('residentScript').player2Score.yb, this.yuanbao);
+                // this.fallMoney(cc.find('resident').getComponent('residentScript').player2Score.coin, this.coin);
+                // this.fallMoney(cc.find('resident').getComponent('residentScript').player2Score.silver, this.silver);
+                // this.fallMoney(cc.find('resident').getComponent('residentScript').player2Score.yb, this.yuanbao);
                 this.clearPlayerMoney(cc.find('resident').getComponent('residentScript').player2Score);
                 break;
             case 3:
-                this.fallMoney(cc.find('resident').getComponent('residentScript').player3Score.coin, this.coin);
-                this.fallMoney(cc.find('resident').getComponent('residentScript').player3Score.silver, this.silver);
-                this.fallMoney(cc.find('resident').getComponent('residentScript').player3Score.yb, this.yuanbao);
+                // this.fallMoney(cc.find('resident').getComponent('residentScript').player3Score.coin, this.coin);
+                // this.fallMoney(cc.find('resident').getComponent('residentScript').player3Score.silver, this.silver);
+                // this.fallMoney(cc.find('resident').getComponent('residentScript').player3Score.yb, this.yuanbao);
                 this.clearPlayerMoney(cc.find('resident').getComponent('residentScript').player3Score);
                 break;
             case 4:
-                this.fallMoney(cc.find('resident').getComponent('residentScript').player4Score.coin, this.coin);
-                this.fallMoney(cc.find('resident').getComponent('residentScript').player4Score.silver, this.silver);
-                this.fallMoney(cc.find('resident').getComponent('residentScript').player4Score.yb, this.yuanbao);
+                // this.fallMoney(cc.find('resident').getComponent('residentScript').player4Score.coin, this.coin);
+                // this.fallMoney(cc.find('resident').getComponent('residentScript').player4Score.silver, this.silver);
+                // this.fallMoney(cc.find('resident').getComponent('residentScript').player4Score.yb, this.yuanbao);
                 this.clearPlayerMoney(cc.find('resident').getComponent('residentScript').player4Score);
                 break;
         }
@@ -98,7 +98,7 @@ cc.Class({
         obj.silver = 0;
         obj.yb = 0;
     },
-    // 清空金币
+    // 接到5个金币 清空杯中金币
     removeCoin(num, type) {
         this.count++;
         this.setY = 0;

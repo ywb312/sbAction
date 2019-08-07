@@ -21,7 +21,7 @@ cc.Class({
             default:null,
             type : cc.AudioClip,
         },
-        qrCodeNode: cc.Node,
+        // qrCodeNode: cc.Node,
     },
     onLoad () {
         this.preload = 100;
@@ -87,7 +87,7 @@ cc.Class({
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 var res = JSON.parse(xhr.responseText);
-                cc.find('resident').getComponent('residentScript').changeQRcode(res.url,_self.qrCodeNode);
+                // cc.find('resident').getComponent('residentScript').changeQRcode(res.url,_self.qrCodeNode);
             }
         }
         xhr.open('post', baseURL);

@@ -35,16 +35,19 @@ cc.Class({
         // 背景转圈
         cc.find('Canvas/alone/rotate').runAction(cc.repeatForever(cc.rotateBy(2,-180)));
     },
+    // 显示头像
     setHeadBox(){
         let list = cc.find('resident').getComponent('residentScript').joinList;
         for (let i = 0; i < list.length; i++) {
             let j = i+1;
-            cc.loader.load({ url: list[i].user.avatar, type: 'jpg' }, function (err, ttt) {
-                var newFra = new cc.SpriteFrame;
-                newFra.setTexture(ttt);
-                cc.find('Canvas/heads/play'+j+'/img/headImg').getComponent(cc.Sprite).spriteFrame = newFra;
-            });
-            cc.find('Canvas/heads/play'+j).active = true;
+            if (j<=6) {
+                cc.loader.load({ url: list[i].avatar, type: 'jpg' }, function (err, ttt) {
+                    var newFra = new cc.SpriteFrame;
+                    newFra.setTexture(ttt);
+                    cc.find('Canvas/heads/play'+j+'/img/headImg').getComponent(cc.Sprite).spriteFrame = newFra;
+                });
+                cc.find('Canvas/heads/play'+j).active = true;
+            }
         }
         cc.find('Canvas/heads/play1').runAction(cc.moveTo(0.5,cc.p(-300,0)));
         this.scheduleOnce(()=>{
