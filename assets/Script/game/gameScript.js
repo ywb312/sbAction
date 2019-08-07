@@ -201,17 +201,17 @@ cc.Class({
         let timer = 5;
         // 每5s出现一次神兽
         this.animalTimer = setInterval(()=>{
-            // switch (Math.floor(Math.random()*3)) {
-            //     case 0:
-            //         cc.find('Canvas/shenshou').getComponent('animalScript').showLine();
-            //         break;
-            //     case 1:
+            switch (Math.floor(Math.random()*3)) {
+                case 0:
+                    cc.find('Canvas/shenshou').getComponent('animalScript').showLine();
+                    break;
+                case 1:
                     cc.find('Canvas/shenshou').getComponent('animalScript').showBall();
-            //         break;
-            //     case 2:
-            //         cc.find('Canvas/shenshou').getComponent('animalScript').showPlane();
-            //         break;
-            // }
+                    break;
+                case 2:
+                    cc.find('Canvas/shenshou').getComponent('animalScript').showPlane();
+                    break;
+            }
             timer = Math.floor(Math.random()*7+4)
         },timer*1000);
     },

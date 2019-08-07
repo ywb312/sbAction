@@ -101,7 +101,7 @@ cc.Class({
         }
         setTimeout(()=>{
             cc.find('Canvas/shenshou/rightTop').runAction(this.rotateRT);
-        },1000);
+        },2800);
     },
     // 控制冰区出来
     showPlane(){

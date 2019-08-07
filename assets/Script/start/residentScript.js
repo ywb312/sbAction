@@ -285,7 +285,7 @@ cc.Class({
 			if(data["cmdid"] == "cb_keepAlive") {
 				console.log('收到KM心跳响应');
 			}
-		})
+		});
 		function startGameToScreen(){
 			window.parent.postMessage(JSON.stringify({
 				"cmdid" : "setArea",

@@ -113,25 +113,25 @@ cc.Class({
             case 1:
                 var a = cc.find('resident').getComponent('residentScript').player1Score;
                 obj.id = cc.find('resident').getComponent('residentScript').player1Score.person.user.openid;
-                obj.score = a.coin + a.silver*5 + a.yb*10;
+                obj.score = a.coin*5 + a.silver*25 + a.yb*50;
                 this.clearPlayerMoney(cc.find('resident').getComponent('residentScript').player1Score);
                 break;
             case 2:
                 var a = cc.find('resident').getComponent('residentScript').player2Score;
                 obj.id = cc.find('resident').getComponent('residentScript').player2Score.person.user.openid;
-                obj.score = a.coin + a.silver*5 + a.yb*10;
+                obj.score = a.coin*5 + a.silver*25 + a.yb*50;
                 this.clearPlayerMoney(cc.find('resident').getComponent('residentScript').player2Score);
                 break;
             case 3:
                 var a = cc.find('resident').getComponent('residentScript').player3Score;
                 obj.id = cc.find('resident').getComponent('residentScript').player3Score.person.user.openid;
-                obj.score = a.coin + a.silver*5 + a.yb*10;
+                obj.score = a.coin*5 + a.silver*25 + a.yb*50;
                 this.clearPlayerMoney(cc.find('resident').getComponent('residentScript').player3Score);
                 break;
             case 4:
                 var a = cc.find('resident').getComponent('residentScript').player4Score;
                 obj.id = cc.find('resident').getComponent('residentScript').player4Score.person.user.openid;
-                obj.score = a.coin + a.silver*5 + a.yb*10;
+                obj.score = a.coin*5 + a.silver*25 + a.yb*50;
                 this.clearPlayerMoney(cc.find('resident').getComponent('residentScript').player4Score);
                 break;
         }
