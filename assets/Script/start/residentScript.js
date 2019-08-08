@@ -30,7 +30,7 @@ cc.Class({
 			coin: 0,	//三种货币
 			yb: 0,
 			silver: 0,
-			now:0		//实时更新的总额
+			now: 0		//实时更新的总额
 		};
 		this.player2Score = {
 			once: 0,
@@ -38,7 +38,7 @@ cc.Class({
 			coin: 0,
 			yb: 0,
 			silver: 0,
-			now:0
+			now: 0
 		};
 		this.player3Score = {
 			once: 0,
@@ -46,7 +46,7 @@ cc.Class({
 			coin: 0,
 			yb: 0,
 			silver: 0,
-			now:0
+			now: 0
 		};
 		this.player4Score = {
 			once: 0,
@@ -54,15 +54,15 @@ cc.Class({
 			coin: 0,
 			yb: 0,
 			silver: 0,
-			now:0
+			now: 0
 		};
 		this.roomId = this.getUrlParam('rid');
 		this.pttoken = this.getUrlParam('pttoken');
 		// 判断链接
-		if(window.location.href.indexOf('ceshi') != -1) {
+		if (window.location.href.indexOf('ceshi') != -1) {
 			this.host = "http://ceshi.putaohudong.com/api/coin/";
 			this.wsURL = "ws://ceshi.putaohudong.com:8088/wscoin?rid=" + this.roomId + "&pttoken=" + this.pttoken;
-		} else if(window.location.href.indexOf('test') != -1) {
+		} else if (window.location.href.indexOf('test') != -1) {
 			this.host = "http://test.putaohudong.com/api/coin/";
 			this.wsURL = "ws://test.putaohudong.com:8088/wscoin?+rid=" + this.roomId + "&pttoken=" + this.pttoken;
 		} else {
@@ -80,51 +80,52 @@ cc.Class({
 		var baseUrl = this.host + name + "?rid=" + this.roomId + "&pttoken=" + this.pttoken;
 		return baseUrl;
 	},
+	// 连接WS
 	LinkWS(obj) {
 		var webSocket = new WebSocket(obj.wsURL);
 		let wsinterval = false;
-		webSocket.onopen = function(event) {
+		webSocket.onopen = function (event) {
 			console.log('撒币大行动链接打开');
 		};
 		//收到消息进行处理
-		webSocket.onmessage = function(val) {
+		webSocket.onmessage = function (val) {
 			// 重设时间
 			clearTimeout(obj.leaveTimer);
-			obj.leaveTimer = setTimeout(()=>{
+			obj.leaveTimer = setTimeout(() => {
 				obj.fenPinEndGame();
-			},100000);
+			}, 100000);
 			var data = JSON.parse(val.data);
-			if(data.action == "open") {
+			if (data.action == "open") {
 				console.log('openWS!');
-				wsinterval = setInterval(function() {
+				wsinterval = setInterval(function () {
 					webSocket.send('{"action":"heart","data":{"time":"' + Math.round(new Date()) + '"}}');
 				}, 10000);
 			}
-			if(data.action == "enter") {
+			if (data.action == "enter") {
 				obj.enterList(data.data);
 			}
-			if(data.action == "start") {
+			if (data.action == "start") {
 				obj.startGame(data.data);
 			}
-			if(data.action == "users") {
+			if (data.action == "users") {
 				obj.everyOne(data.data);
 			}
 			if (data.action == 'peng') {//碰撞返回 不储存
-				cc.find('resident').emit('showPeng',data.data);
+				cc.find('resident').emit('showPeng', data.data);
 			}
-			if(data.action == "leave") {
+			if (data.action == "leave") {
 				obj.removePlayer(data.data);
 			}
-			if(data.action == "got") {
-				cc.find('resident').emit('goEnd',data.data);
+			if (data.action == "got") {
+				cc.find('resident').emit('goEnd', data.data);
 			}
 			//跳转到付费
-			if(data.action == 'userpay') {
-				cc.find('resident').emit('moveToAgain',data.data);
+			if (data.action == 'userpay') {
+				cc.find('resident').emit('moveToAgain', data.data);
 			}
 			// 关闭神兽火焰
 			if (data.action == 'animals') {
-				if (cc.find('Canvas/shenshou')!=null) {
+				if (cc.find('Canvas/shenshou') != null) {
 					if (data.data[0].end == 0) {
 						cc.find('Canvas/shenshou').getComponent('animalScript').hideLine(data.data[0].p);
 					}
@@ -134,27 +135,35 @@ cc.Class({
 				}
 			}
 		};
-		webSocket.onclose = function() {
+		webSocket.onclose = function () {
 			console.log("撒币大行动链接关闭");
 		};
-		cc.find('resident').on('upCoin', function(obj) {
+		// 上传得分
+		cc.find('resident').on('upCoin', function (obj) {
 			webSocket.send('{"action":"coin","pttoken":"' + cc.find('resident').getComponent('residentScript').pttoken +
 				'","rid":"' + cc.find('resident').getComponent('residentScript').roomId +
 				'","data":{"coin":"' + obj.score +
 				'","openid":"' + obj.id +
 				'"}}');
 		});
-		cc.find('resident').on('upAttack', function(data) {
+		// 上传累计攻击力
+		cc.find('resident').on('upAttack', function (data) {
 			webSocket.send('{"action":"attack","pttoken":"' + cc.find('resident').getComponent('residentScript').pttoken +
 				'","rid":"' + cc.find('resident').getComponent('residentScript').roomId +
 				'","data":{"coin":"' + 25 +
 				'","openid":"' + data +
 				'"}}');
 		});
-		cc.find('resident').on('upAnimals', function(data) {
+		// 上传生成神兽类型
+		cc.find('resident').on('upAnimals', function (data) {
 			webSocket.send('{"action":"animals","pttoken":"' + cc.find('resident').getComponent('residentScript').pttoken +
 				'","rid":"' + cc.find('resident').getComponent('residentScript').roomId +
-				'","data":'+ JSON.stringify(data) + '}');
+				'","data":' + JSON.stringify(data) + '}');
+		});
+		cc.find('resident').on('transpondScore', function (data) {
+			webSocket.send('{"action":"coinmsg","pttoken":"' + cc.find('resident').getComponent('residentScript').pttoken +
+				'","rid":"' + cc.find('resident').getComponent('residentScript').roomId +
+				'","data":' + JSON.stringify(data) + '}');
 		});
 	},
 	// 加入头像显示
@@ -162,17 +171,17 @@ cc.Class({
 		data.openid = data.user.openid;
 		data.avatar = data.user.avatar;
 		data.nickname = data.user.nickname;
-		if(this.joinList.length == 0) {
+		if (this.joinList.length == 0) {
 			this.joinList.push(data);
 		}
 		var bol = false;
-		for(let i = 0; i < this.joinList.length; i++) {
-			if(data.openid == this.joinList[i].openid) {
+		for (let i = 0; i < this.joinList.length; i++) {
+			if (data.openid == this.joinList[i].openid) {
 				bol = true;
 				this.joinList[i] = data;
 			}
 		}
-		if(!bol) {
+		if (!bol) {
 			this.joinList.push(data);
 		}
 		cc.find('resident').emit('homeHeadShow', this.joinList);
@@ -181,31 +190,31 @@ cc.Class({
 	startGame(data) {
 		// 先收到start
 		data.tool = data.t;
-		if(this.userList.length == 0) {
+		if (this.userList.length == 0) {
 			this.userList.push(data);
 		}
 		// 判断数组中有没有此用户
 		let bol = true;
-		for(let i = 0; i < this.userList.length; i++) {
-			if(data.user.openid == this.userList[i].user.openid) {
+		for (let i = 0; i < this.userList.length; i++) {
+			if (data.user.openid == this.userList[i].user.openid) {
 				bol = false;
 			}
 		}
-		if(bol) {
+		if (bol) {
 			this.userList.push(data);
 		}
 		cc.find('resident').emit('startGame', data);
-		if(cc.find("Canvas/fall")!=null){
+		if (cc.find("Canvas/fall") != null) {
 			cc.find('Canvas/bz/bz1/headBox').getComponent('scoreScript').change();
 		}
 	},
 	// 玩家的位置信息 (替换属性)收到users前 必收到start  收到users只是将数据进行更新
 	everyOne(data) {
 		// 不可能为空
-		for(let j = 0; j < this.userList.length; j++) {
-			for(let i = 0; i < data.length; i++) {
+		for (let j = 0; j < this.userList.length; j++) {
+			for (let i = 0; i < data.length; i++) {
 				//对用户进行更新
-				if(data[i].user.openid == this.userList[j].user.openid) {
+				if (data[i].user.openid == this.userList[j].user.openid) {
 					this.userList[j].x = data[i].x;
 					this.userList[j].y = data[i].y;
 					this.userList[j].n = data[i].n;
@@ -217,7 +226,7 @@ cc.Class({
 				}
 			}
 		}
-		switch(this.userList.length) {
+		switch (this.userList.length) {
 			case 1:
 				this.player1Score.person = this.userList[0];
 				break;
@@ -238,9 +247,9 @@ cc.Class({
 	// 删除玩家
 	removePlayer(data) {
 		// 删除操作
-		for(let i = 0; i < this.userList.length; i++) {
-			if(data.openid == this.userList[i].user.openid) {
-				this.userList.splice(i,1); 
+		for (let i = 0; i < this.userList.length; i++) {
+			if (data.openid == this.userList[i].user.openid) {
+				this.userList.splice(i, 1);
 				switch (i) {
 					case 0:
 						initObj(this.player1Score);
@@ -257,9 +266,9 @@ cc.Class({
 				}
 				// 取消杯子显示效果
 				cc.find('resident').emit('userLeave', this.userList);
-			} 
+			}
 		}
-		function initObj(obj){
+		function initObj(obj) {
 			obj.once = 0;
 			obj.sum = 0;
 			obj.coin = 0;
@@ -271,17 +280,17 @@ cc.Class({
 	// 连接分屏
 	kmWs() {
 		let barcode = "";
-		window.addEventListener("message", function(e) {
+		window.addEventListener("message", function (e) {
 			var data = JSON.parse(e.data)
 			var source = e.source
 			/*请求绑定码回调*/
-			if(data["cmdid"] == "cb_getBarcode") {
+			if (data["cmdid"] == "cb_getBarcode") {
 				barcode = data["data"]["barcode"];
 			}
-			if(data["cmdid"] == "notifyBarcodeChange") {
+			if (data["cmdid"] == "notifyBarcodeChange") {
 				barcode = data["data"]["barcode"];
 			}
-			if(data["cmdid"] == "cb_keepAlive") {
+			if (data["cmdid"] == "cb_keepAlive") {
 				console.log('收到KM心跳响应');
 			}
 		});
@@ -300,7 +309,7 @@ cc.Class({
 	// 对获取的到的用户列表进行操作
 	getPacketText() {
 		var str = '';
-		if(this.isnew == 0) {
+		if (this.isnew == 0) {
 			str = '财神的聚宝盆红包';
 		} else {
 			// 红包发送者信息
@@ -313,11 +322,11 @@ cc.Class({
 		var f = Math.round(x * 100) / 100;
 		var s = f.toString();
 		var rs = s.indexOf('.');
-		if(rs < 0) {
+		if (rs < 0) {
 			rs = s.length;
 			s += '.';
 		}
-		while(s.length <= rs + 2) {
+		while (s.length <= rs + 2) {
 			s += '0';
 		}
 		return s.toFixed(2);
@@ -326,7 +335,7 @@ cc.Class({
 	getUrlParam(name) {
 		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
 		var r = window.location.search.substr(1).match(reg); //匹配目标参数
-		if(r != null) return unescape(r[2]);
+		if (r != null) return unescape(r[2]);
 		return null; //返回参数值
 	},
 	// 生成二维码
@@ -339,10 +348,10 @@ cc.Class({
 		var tileH = node.height / qrcode.getModuleCount();
 
 		// draw in the Graphics
-		for(var row = 0; row < qrcode.getModuleCount(); row++) {
-			for(var col = 0; col < qrcode.getModuleCount(); col++) {
+		for (var row = 0; row < qrcode.getModuleCount(); row++) {
+			for (var col = 0; col < qrcode.getModuleCount(); col++) {
 				// ctx.fillStyle = qrcode.isDark(row, col) ? options.foreground : options.background;
-				if(qrcode.isDark(row, col)) {
+				if (qrcode.isDark(row, col)) {
 					ctx.fillColor = cc.Color.BLACK;
 				} else {
 					ctx.fillColor = cc.Color.WHITE;

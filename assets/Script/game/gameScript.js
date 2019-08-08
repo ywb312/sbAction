@@ -201,6 +201,7 @@ cc.Class({
         let timer = 5;
         // 每5s出现一次神兽
         this.animalTimer = setInterval(()=>{
+            // 随机生成神兽
             switch (Math.floor(Math.random()*3)) {
                 case 0:
                     cc.find('Canvas/shenshou').getComponent('animalScript').showLine();
@@ -212,7 +213,8 @@ cc.Class({
                     cc.find('Canvas/shenshou').getComponent('animalScript').showPlane();
                     break;
             }
-            timer = Math.floor(Math.random()*7+4)
+            // 随机时间 最少4s 最多10s
+             timer = Math.floor(Math.random()*7+4)
         },timer*1000);
     },
     onDestroy(){

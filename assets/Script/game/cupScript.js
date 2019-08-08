@@ -126,7 +126,6 @@ cc.Class({
             this.node.setPosition(obj.x,obj.y);
             //  杯子类型 0 200 300
             var list = [];
-            //  筛选出使用哪个数组 
             //  道具随机生成
             switch (obj.tool) {
                 case "100":     //杯子  碰撞体位置
@@ -313,6 +312,11 @@ cc.Class({
         score.once++;
         //更新成绩
         cc.find('Canvas/bz/bz1/headBox').getComponent('scoreScript').change();
+        // 通知手机端改变得分
+        clearTimeout(this.throttle);
+        this.throttle=setTimeout(()=>{
+            cc.find('resident').emit('transpondScore',{score:score.now,openid:score.person.user.openid});
+        },100);
         // 杯中金币数量
         if (score.once<5) { //不到5个
             // 不执行杯中金币
