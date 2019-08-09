@@ -1,6 +1,10 @@
 cc.Class({
     extends: cc.Component,
     properties: {
+        fireLinePic:{
+            default:[],
+            type: [cc.SpriteFrame],
+        },
         fireBall:cc.Prefab,
     },
     start () {
@@ -22,7 +26,7 @@ cc.Class({
             duration:2,
         }
         var targetNode = cc.find('Canvas/shenshou/xy');
-        // 火线的展示方式
+        // 火线的3种展示先后顺序
         switch (Math.floor(Math.random()*3)) {
             case 0:
                 onceShow('Canvas/shenshou/leftTop/fireLine/lineTop',1);
@@ -50,19 +54,29 @@ cc.Class({
         }
         //单个显示
         function onceShow(str,p){
+            // 神兽停止转动
             if (str == 'Canvas/shenshou/leftTop/fireLine/lineTop') {
                 cc.find('Canvas/shenshou/leftTop').stopAction(_self.rotateLT);
             } else {
                 cc.find('Canvas/shenshou/rightBottom').stopAction(_self.rotateRB);
             }
             cc.find(str).active = true;
+            let num = 0;
+            // let timer = setInterval(()=>{
+            //     cc.find(str).height += 40;
+            //     if (cc.find(str).height>=645) {
+            //         cc.find(str).height = 645;
+            //         clearInterval(timer);
+            //     }
+            // },40);
             let timer = setInterval(()=>{
-                cc.find(str).height += 40;
-                if (cc.find(str).height>=645) {
-                    cc.find(str).height = 645;
+                cc.find(str).getComponent(cc.Sprite).spriteFrame = _self.fireLinePic[num];
+                num++;
+                if (num>17) {
                     clearInterval(timer);
+                    cc.find(str).active = false;
                 }
-            },40);
+            },110);
             var worldPoint1 = cc.find(str+'/coordinate1').convertToWorldSpaceAR(targetNode);
             var worldPoint2 = cc.find(str+'/coordinate2').convertToWorldSpaceAR(targetNode);
             var worldPoint3 = cc.find(str+'/coordinate3').convertToWorldSpaceAR(targetNode);
@@ -73,8 +87,8 @@ cc.Class({
             data.c  = posFloor(targetNode.convertToNodeSpaceAR(worldPoint3));
             data.d  = posFloor(targetNode.convertToNodeSpaceAR(worldPoint4));
             data.center  = posFloor(targetNode.convertToNodeSpaceAR(worldPoint5));
-            data.w = cc.find(str).width;
-            data.h = cc.find(str).height;
+            data.w = 660;
+            data.h = 350;
             data.p = p;
             cc.find('resident').emit('upAnimals',data);
         }
@@ -101,7 +115,7 @@ cc.Class({
         }
         setTimeout(()=>{
             cc.find('Canvas/shenshou/rightTop').runAction(this.rotateRT);
-        },2800);
+        },3000);
     },
     // 控制冰区出来
     showPlane(){
@@ -139,12 +153,12 @@ cc.Class({
             cc.find('Canvas/shenshou/leftTop').stopAllActions();
             cc.find('Canvas/shenshou/leftTop').runAction(this.rotateLT);
             cc.find('Canvas/shenshou/leftTop/fireLine/lineTop').active = false;
-            cc.find('Canvas/shenshou/leftTop/fireLine/lineTop').height = 120;
+            cc.find('Canvas/shenshou/leftTop/fireLine/lineTop').getComponent(cc.Sprite).spriteFrame = this.fireLinePic[0];
         }else if(p == 2){
             cc.find('Canvas/shenshou/rightBottom').stopAllActions();
             cc.find('Canvas/shenshou/rightBottom').runAction(this.rotateRB);
             cc.find('Canvas/shenshou/rightBottom/fireLine/lineBottom').active = false;
-            cc.find('Canvas/shenshou/rightBottom/fireLine/lineBottom').height = 120;
+            cc.find('Canvas/shenshou/rightBottom/fireLine/lineBottom').getComponent(cc.Sprite).spriteFrame = this.fireLinePic[0];
         }
     },
     // 后台控制冰区关闭

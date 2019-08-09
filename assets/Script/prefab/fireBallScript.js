@@ -10,12 +10,12 @@ cc.Class({
     start(){
         let num = 0;
         this.timer = setInterval(()=>{
-            this.img.getComponent(cc.Sprite).spriteFrame = this.ball[num];
             num++;
             if (num > 5) {
-                clearInterval(this.timer);
+                num = 0;
             }
-        },200);
+            this.img.getComponent(cc.Sprite).spriteFrame = this.ball[num];
+        },40);
     },
     move (setX,setY) {
         let bol = true;
@@ -26,7 +26,7 @@ cc.Class({
                 clearInterval(this.timer);
                 this.node.destroy();
             }
-            if(pos.x<=10 && bol){
+            if(pos.x<=20 && bol){
                 setX = -setX;
                 bol = false;
                 this.node.setRotation(50);
@@ -59,4 +59,7 @@ cc.Class({
             cc.find('resident').emit('upAnimals',data);
         }
     },
+    onDestroy(){
+        clearInterval(this.timer);
+    }
 });

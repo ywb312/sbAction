@@ -5,12 +5,12 @@ cc.Class({
     start () {
         cc.find("Canvas/yunLow/man").runAction(cc.repeatForever(cc.sequence(
             [
-                cc.spawn(cc.moveTo(1.5,cc.p(280,631)),cc.scaleTo(1.5,1.3)),
-                cc.spawn(cc.moveTo(1.5,cc.p(0,631)),cc.scaleTo(1.5,1.1)),
-                cc.spawn(cc.moveTo(1.5,cc.p(-280,631)),cc.scaleTo(1.5,1.3)),
-                cc.spawn(cc.moveTo(1.5,cc.p(0,631)),cc.scaleTo(1.5,1.1))
+                cc.spawn(cc.moveTo(1.5,cc.p(235,606)),cc.scaleTo(1.5,1.5)),
+                cc.spawn(cc.moveTo(1.5,cc.p(0,606)),cc.scaleTo(1.5,1.1)),
+                cc.spawn(cc.moveTo(1.5,cc.p(-235,606)),cc.scaleTo(1.5,1.5)),
+                cc.spawn(cc.moveTo(1.5,cc.p(0,606)),cc.scaleTo(1.5,1.1))
             ]
-            )));
+        )));
     },
     run(){
         cc.find("Canvas/yunLow/man/man1").active=false;
