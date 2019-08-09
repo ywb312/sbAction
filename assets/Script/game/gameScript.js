@@ -44,7 +44,7 @@ cc.Class({
         },
     },
     onLoad() {
-        this.num = 5;
+        this.num = 10;
         cc.director.getCollisionManager().enabled=true;
         // 设置杯子的编号
         cc.find('Canvas/bz/bz1').getComponent('cupScript').setNum(1);
@@ -75,7 +75,7 @@ cc.Class({
         // 控制杯子的显示
         cc.find('resident').on('usersAdv',function(data){
             if (cc.find('Canvas/bz/bz1')!=null) {
-                _self.num = 5 * data.length;
+                _self.num = 10 * data.length;
                 for (let i = 0; i < data.length; i++) {
                     if (data[i].user.avatar!=undefined && cc.find('Canvas/bz/bz1')!=null) {
                         let j = i + 1;
@@ -160,7 +160,8 @@ cc.Class({
     createPrefab(){
         let pre = "";
         let self = this;
-        var rad = Math.random();
+        // var rad = Math.random();
+        var rad = 1;
         if (rad>0.7) {
             cc.audioEngine.play(this.prefab1Music,false,1);
             pre = this.prefab1;

@@ -161,7 +161,7 @@ cc.Class({
 				'","data":' + JSON.stringify(data) + '}');
 		});
 		cc.find('resident').on('transpondScore', function (data) {
-			webSocket.send('{"action":"coinmsg","pttoken":"' + cc.find('resident').getComponent('residentScript').pttoken +
+			webSocket.send('{"action":"coinMsg","pttoken":"' + cc.find('resident').getComponent('residentScript').pttoken +
 				'","rid":"' + cc.find('resident').getComponent('residentScript').roomId +
 				'","data":' + JSON.stringify(data) + '}');
 		});

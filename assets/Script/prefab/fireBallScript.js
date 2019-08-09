@@ -1,6 +1,21 @@
 cc.Class({
     extends: cc.Component,
     properties: {
+        img:cc.Node,
+        ball:{
+            default:[],
+            type: [cc.SpriteFrame],
+        },
+    },
+    start(){
+        let num = 0;
+        let timer = setInterval(()=>{
+            this.img.getComponent(cc.Sprite).spriteFrame = this.ball[num];
+            num++;
+            if (num > 5) {
+                clearInterval(timer);
+            }
+        },800);
     },
     move (setX,setY) {
         let bol = true;
@@ -13,6 +28,7 @@ cc.Class({
             if(pos.x<=10 && bol){
                 setX = -setX;
                 bol = false;
+                this.node.setRotation(30);
             }
             this.node.x-=setX;
             this.node.y-=setY;

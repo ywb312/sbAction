@@ -84,18 +84,19 @@ cc.Class({
             }
         },300);
         // 抖动动画
-        this.shakeAction = cc.sequence(
-            cc.rotateTo(0.05,-3),
+        
+        this.shakeAction = cc.repeatForever(cc.sequence(
+            cc.rotateTo(0.05,-4),
             cc.rotateTo(0.05,0),
-            cc.rotateTo(0.05,3),
-            cc.rotateTo(0.05,-3),
+            cc.rotateTo(0.05,4),
+            cc.rotateTo(0.05,-4),
             cc.rotateTo(0.05,0),
-            cc.rotateTo(0.05,3),
-            cc.rotateTo(0.05,-3),
+            cc.rotateTo(0.05,4),
+            cc.rotateTo(0.05,-4),
             cc.rotateTo(0.05,0),
-            cc.rotateTo(0.05,3),
+            cc.rotateTo(0.05,4),
             cc.rotateTo(0.05,0),
-        );
+        ));
         this.comboTimer = null;
         this.coinTimer = null;
     },
@@ -108,6 +109,7 @@ cc.Class({
         // 新加参数到resident里面添加
         if (i == this.num) {
             this.openid = obj.user.openid;
+            let _self = this;
             //每次碰撞变成
             this.tool  = obj.tool;
             // 拖尾效果  监听是否有点击
@@ -138,9 +140,15 @@ cc.Class({
                     this.node.getComponents(cc.BoxCollider)[2].offset = cc.v2(-8,-55);
                     this.node.getComponents(cc.BoxCollider)[2].size.width = 55;
                     this.headBoxType.getComponent(cc.Sprite).spriteFrame = this.headBox[0];
+                    // 碰碎效果
                     if (obj.n == 3) {
-                        this.node.runAction(this.shakeAction);
+                        clearTimeout(_self.timerAction);
+                        _self.node.runAction(_self.shakeAction);
                         cc.find('Canvas/bz/bz'+i+'/mid').getComponent('cupAddCoinScript').boomNone();
+                        _self.timerAction = setTimeout(() => {
+                            _self.node.stopAllActions();
+                            _self.node.setRotation(0);
+                        }, 2000);
                     }
                     break;
                 case "200":     // 啤酒瓶   碰撞体位置
@@ -154,8 +162,13 @@ cc.Class({
                     this.node.getComponents(cc.BoxCollider)[2].size.width = 50;
                     this.headBoxType.getComponent(cc.Sprite).spriteFrame = this.headBox[1];
                     if (obj.n == 3) {
-                        this.node.runAction(this.shakeAction);
+                        clearTimeout(_self.timerAction);
+                        _self.node.runAction(_self.shakeAction);
                         cc.find('Canvas/bz/bz'+i+'/mid').getComponent('cupAddCoinScript').boomNone();
+                        _self.timerAction = setTimeout(() => {
+                            _self.node.stopAllActions();
+                            _self.node.setRotation(0);
+                        }, 2000);
                     }
                     break;
                 case "300":     //茅台  碰撞体位置
@@ -169,8 +182,13 @@ cc.Class({
                     this.node.getComponents(cc.BoxCollider)[2].size.width = 50;
                     this.headBoxType.getComponent(cc.Sprite).spriteFrame = this.headBox[2];
                     if (obj.n == 3) {
-                        this.node.runAction(this.shakeAction);
+                        clearTimeout(_self.timerAction);
+                        _self.node.runAction(_self.shakeAction);
                         cc.find('Canvas/bz/bz'+i+'/mid').getComponent('cupAddCoinScript').boomNone();
+                        _self.timerAction = setTimeout(() => {
+                            _self.node.stopAllActions();
+                            _self.node.setRotation(0);
+                        }, 2000);
                     }
                     break;
                 case "400":      // 碗  碰撞体位置
@@ -184,7 +202,13 @@ cc.Class({
                     this.node.getComponents(cc.BoxCollider)[2].size.width = 50;
                     this.headBoxType.getComponent(cc.Sprite).spriteFrame = this.headBox[3];
                     if (obj.n == 3) {
+                        clearTimeout(_self.timerAction);
+                        _self.node.runAction(_self.shakeAction);
                         cc.find('Canvas/bz/bz'+i+'/mid').getComponent('cupAddCoinScript').boomNone();
+                        _self.timerAction = setTimeout(() => {
+                            _self.node.stopAllActions();
+                            _self.node.setRotation(0);
+                        }, 2000);
                     }
                     break;
             }
@@ -345,5 +369,6 @@ cc.Class({
     onDestroy(){
         clearTimeout(this.coinTimer);
         clearTimeout(this.comboTimer);
+        clearTimeout(this.timerAction);
     }
 });
