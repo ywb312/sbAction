@@ -9,13 +9,13 @@ cc.Class({
     },
     start(){
         let num = 0;
-        let timer = setInterval(()=>{
+        this.timer = setInterval(()=>{
             this.img.getComponent(cc.Sprite).spriteFrame = this.ball[num];
             num++;
             if (num > 5) {
-                clearInterval(timer);
+                clearInterval(this.timer);
             }
-        },800);
+        },200);
     },
     move (setX,setY) {
         let bol = true;
@@ -23,12 +23,13 @@ cc.Class({
         this.schedule(function(){
             var pos = this.node.convertToWorldSpaceAR(cc.find('Canvas/shenshou').position);//3352 1148  //3800 1148 
             if (pos.x>=1100 || pos.y<=-500) {
+                clearInterval(this.timer);
                 this.node.destroy();
             }
             if(pos.x<=10 && bol){
                 setX = -setX;
                 bol = false;
-                this.node.setRotation(30);
+                this.node.setRotation(50);
             }
             this.node.x-=setX;
             this.node.y-=setY;
