@@ -134,6 +134,11 @@ cc.Class({
 					}
 				}
 			}
+			if (data.action == 'score') {
+				if (cc.find('Canvas/background/surplus')!=null) {
+					cc.find('Canvas/background/surplus/coins').getComponent('sumScript').setSum(data.data[0].nb);
+				}
+			}
 		};
 		webSocket.onclose = function () {
 			console.log("撒币大行动链接关闭");

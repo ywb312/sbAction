@@ -68,10 +68,27 @@ cc.Class({
         headBox:{
             default:[],
             type: [cc.SpriteFrame],
-        }
+        },
+        tool1Glass:{
+            default:[],
+            type: [cc.SpriteFrame],
+        },
+        tool2Glass:{
+            default:[],
+            type: [cc.SpriteFrame],
+        },
+        tool3Glass:{
+            default:[],
+            type: [cc.SpriteFrame],
+        },
+        tool4Glass:{
+            default:[],
+            type: [cc.SpriteFrame],
+        },
     },
     start(){
         this.tool = 0;
+        this.n = 0;
         this.bol = true;
         this.combo = 0;
         // 闪烁动画
@@ -121,6 +138,33 @@ cc.Class({
             }else{
                 cc.find('Canvas/bz/bz'+this.num+'/par').active = false;
             }
+            // 当n变化时
+            if (this.n != obj.n) {
+                this.n = obj.n;
+                switch (obj.tool) {
+                    case "100":
+                        this.createGlass(this.tool1Glass);
+                        break;
+                    case "200":
+                        this.createGlass(this.tool2Glass);
+                        break;
+                    case "300":
+                        this.createGlass(this.tool3Glass);
+                        break;
+                    case "400":
+                        this.createGlass(this.tool4Glass);
+                        break;
+                }
+                if (obj.n == 3) {
+                    clearTimeout(_self.timerAction);
+                    _self.node.runAction(_self.shakeAction);
+                    cc.find('Canvas/bz/bz'+i+'/mid').getComponent('cupAddCoinScript').boomNone();
+                    _self.timerAction = setTimeout(() => {
+                        _self.node.stopAllActions();
+                        _self.node.setRotation(0);
+                    }, 2000);
+                }
+            }
             // 设置位置
                 // 利用动画的方式
                 // this.node.stopAllActions();
@@ -140,16 +184,6 @@ cc.Class({
                     this.node.getComponents(cc.BoxCollider)[2].offset = cc.v2(-8,-55);
                     this.node.getComponents(cc.BoxCollider)[2].size.width = 55;
                     this.headBoxType.getComponent(cc.Sprite).spriteFrame = this.headBox[0];
-                    // 碰碎效果
-                    if (obj.n == 3) {
-                        clearTimeout(_self.timerAction);
-                        _self.node.runAction(_self.shakeAction);
-                        cc.find('Canvas/bz/bz'+i+'/mid').getComponent('cupAddCoinScript').boomNone();
-                        _self.timerAction = setTimeout(() => {
-                            _self.node.stopAllActions();
-                            _self.node.setRotation(0);
-                        }, 2000);
-                    }
                     break;
                 case "200":     // 啤酒瓶   碰撞体位置
                     list = this.tool2;
@@ -161,15 +195,6 @@ cc.Class({
                     this.node.getComponents(cc.BoxCollider)[2].offset = cc.v2(0,-60);
                     this.node.getComponents(cc.BoxCollider)[2].size.width = 50;
                     this.headBoxType.getComponent(cc.Sprite).spriteFrame = this.headBox[1];
-                    if (obj.n == 3) {
-                        clearTimeout(_self.timerAction);
-                        _self.node.runAction(_self.shakeAction);
-                        cc.find('Canvas/bz/bz'+i+'/mid').getComponent('cupAddCoinScript').boomNone();
-                        _self.timerAction = setTimeout(() => {
-                            _self.node.stopAllActions();
-                            _self.node.setRotation(0);
-                        }, 2000);
-                    }
                     break;
                 case "300":     //茅台  碰撞体位置
                     list = this.tool3;
@@ -181,15 +206,6 @@ cc.Class({
                     this.node.getComponents(cc.BoxCollider)[2].offset = cc.v2(-5,60);
                     this.node.getComponents(cc.BoxCollider)[2].size.width = 50;
                     this.headBoxType.getComponent(cc.Sprite).spriteFrame = this.headBox[2];
-                    if (obj.n == 3) {
-                        clearTimeout(_self.timerAction);
-                        _self.node.runAction(_self.shakeAction);
-                        cc.find('Canvas/bz/bz'+i+'/mid').getComponent('cupAddCoinScript').boomNone();
-                        _self.timerAction = setTimeout(() => {
-                            _self.node.stopAllActions();
-                            _self.node.setRotation(0);
-                        }, 2000);
-                    }
                     break;
                 case "400":      // 碗  碰撞体位置
                     list = this.tool4;
@@ -201,24 +217,9 @@ cc.Class({
                     this.node.getComponents(cc.BoxCollider)[2].offset = cc.v2(0,-60);
                     this.node.getComponents(cc.BoxCollider)[2].size.width = 50;
                     this.headBoxType.getComponent(cc.Sprite).spriteFrame = this.headBox[3];
-                    if (obj.n == 3) {
-                        clearTimeout(_self.timerAction);
-                        _self.node.runAction(_self.shakeAction);
-                        cc.find('Canvas/bz/bz'+i+'/mid').getComponent('cupAddCoinScript').boomNone();
-                        _self.timerAction = setTimeout(() => {
-                            _self.node.stopAllActions();
-                            _self.node.setRotation(0);
-                        }, 2000);
-                    }
                     break;
             }
-            // //由复活保护罩的显示 改为 抖动动画          无敌
-            // if (obj.t == 1 || obj.d == 1){
-            //     this.node.runAction(this.shakeAction);
-            // } else {
-            //     this.node.stopAllActions();
-            // }
-            // 杯子收到神兽的影响  0无效果   1火焰   2冰冻
+            // 杯子上附着的火焰效果
             switch (obj.g) {
                 case 0:
                     this.cupState.active = false;
@@ -354,17 +355,17 @@ cc.Class({
         }
     },
     //碰撞产生碎片
-    createGlass(){
-        var glassPos = cc.v2(0,0);
+    createGlass(arr){
+        let x = Math.floor(Math.random()*41-20);
         var glassNode = new cc.Node;
         this.cupNode.addChild(glassNode);
-        glassNode.setPosition(glassPos);
+        glassNode.setPosition(cc.v2(x,0));
         glassNode.addComponent(cc.Sprite);
-        glassNode.getComponent(cc.Sprite).spriteFrame = this.otherGlassPic[Math.floor(Math.random()*this.otherGlassPic.length)];
-        glassNode.width = 50;
-        glassNode.height = 40;
-        glassNode.runAction(cc.moveBy(0.5,cc.v2(0,-50)));
-        this.scheduleOnce(function(){glassNode.destroy();},0.5);
+        glassNode.getComponent(cc.Sprite).spriteFrame = arr[Math.floor(Math.random()*arr.length)];
+        glassNode.width = 60;
+        glassNode.height = 48;
+        glassNode.runAction(cc.moveBy(0.6,cc.v2(x,-80)));
+        this.scheduleOnce(function(){glassNode.destroy();},0.6);
     },
     onDestroy(){
         clearTimeout(this.coinTimer);
