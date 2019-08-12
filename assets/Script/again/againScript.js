@@ -14,16 +14,12 @@ cc.Class({
     start() {
         this.setHeadBox();
         let fee = cc.find('resident').getComponent('residentScript').fee;
-        let list = cc.find('resident').getComponent('residentScript').joinList;
         let num = fee/100;
-        var sum = fee * 4;
-        if (list.length>4) {
-            sum = fee * list.length;
-        }
+        var sum = fee * 4 / 5;
         cc.find('Canvas/topNum').getComponent('numScript').setTopNum(num);
         cc.find('Canvas/topNum').getComponent('numScript').setBottomNum(sum);
         this.schedule(()=>{
-            cc.find('Canvas/sumLabel').getComponent(cc.Label).string = sum/100;
+            cc.find('Canvas/sumLabel').getComponent(cc.Label).string = num * 4;
             cc.find('Canvas/sumLabel').active = true;
         },2);
         //聚宝盆亮点闪烁

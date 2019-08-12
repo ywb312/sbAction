@@ -18,80 +18,80 @@ cc.Class({
         this.count = 0;
     },
     //创建杯中金币      不被执行
-    createCoin(type) {
-        var coin = new cc.Node;
-        coin.addComponent(cc.Sprite);
-        switch (type) {
-            case 1:
-                coin.getComponent(cc.Sprite).spriteFrame = this.coinPic;
-                coin.width = 28;
-                coin.height = 28;
-                break;
-            case 5:
-                coin.getComponent(cc.Sprite).spriteFrame = this.silPic;
-                coin.width = 34;
-                coin.height = 28;
-                break;
-            case 10:
-                coin.getComponent(cc.Sprite).spriteFrame = this.ybPic;
-                coin.width = 50;
-                coin.height = 40;
-                break;
-            default:
-                break;
-        }
-        this.pNode.addChild(coin);
-        this.setY += 8;
-        coin.setPosition(Math.floor(Math.random() * 19) - 9, this.setY - 10);
-    },
+    // createCoin(type) {
+    //     var coin = new cc.Node;
+    //     coin.addComponent(cc.Sprite);
+    //     switch (type) {
+    //         case 1:
+    //             coin.getComponent(cc.Sprite).spriteFrame = this.coinPic;
+    //             coin.width = 28;
+    //             coin.height = 28;
+    //             break;
+    //         case 5:
+    //             coin.getComponent(cc.Sprite).spriteFrame = this.silPic;
+    //             coin.width = 34;
+    //             coin.height = 28;
+    //             break;
+    //         case 10:
+    //             coin.getComponent(cc.Sprite).spriteFrame = this.ybPic;
+    //             coin.width = 50;
+    //             coin.height = 40;
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    //     this.pNode.addChild(coin);
+    //     this.setY += 8;
+    //     coin.setPosition(Math.floor(Math.random() * 19) - 9, this.setY - 10);
+    // },
     // 杯子碰碎执行 目前清空杯中的成绩
     boomNone() {
         this.count = 0;
         // 杯子缩放默认1.5
         this.node.parent.scale = 1.5;
         // 获取货币数量
-        switch (this.person) {
-            case 1:
-                // this.fallMoney(cc.find('resident').getComponent('residentScript').player1Score.coin, this.coin);
-                // this.fallMoney(cc.find('resident').getComponent('residentScript').player1Score.silver, this.silver);
-                // this.fallMoney(cc.find('resident').getComponent('residentScript').player1Score.yb, this.yuanbao);
-                this.clearPlayerMoney(cc.find('resident').getComponent('residentScript').player1Score);
-                break;
-            case 2:
-                // this.fallMoney(cc.find('resident').getComponent('residentScript').player2Score.coin, this.coin);
-                // this.fallMoney(cc.find('resident').getComponent('residentScript').player2Score.silver, this.silver);
-                // this.fallMoney(cc.find('resident').getComponent('residentScript').player2Score.yb, this.yuanbao);
-                this.clearPlayerMoney(cc.find('resident').getComponent('residentScript').player2Score);
-                break;
-            case 3:
-                // this.fallMoney(cc.find('resident').getComponent('residentScript').player3Score.coin, this.coin);
-                // this.fallMoney(cc.find('resident').getComponent('residentScript').player3Score.silver, this.silver);
-                // this.fallMoney(cc.find('resident').getComponent('residentScript').player3Score.yb, this.yuanbao);
-                this.clearPlayerMoney(cc.find('resident').getComponent('residentScript').player3Score);
-                break;
-            case 4:
-                // this.fallMoney(cc.find('resident').getComponent('residentScript').player4Score.coin, this.coin);
-                // this.fallMoney(cc.find('resident').getComponent('residentScript').player4Score.silver, this.silver);
-                // this.fallMoney(cc.find('resident').getComponent('residentScript').player4Score.yb, this.yuanbao);
-                this.clearPlayerMoney(cc.find('resident').getComponent('residentScript').player4Score);
-                break;
-        }
+        // switch (this.person) {
+        //     case 1:
+        //         // this.fallMoney(cc.find('resident').getComponent('residentScript').player1Score.coin, this.coin);
+        //         // this.fallMoney(cc.find('resident').getComponent('residentScript').player1Score.silver, this.silver);
+        //         // this.fallMoney(cc.find('resident').getComponent('residentScript').player1Score.yb, this.yuanbao);
+        //         // this.clearPlayerMoney(cc.find('resident').getComponent('residentScript').player1Score);
+        //         break;
+        //     case 2:
+        //         // this.fallMoney(cc.find('resident').getComponent('residentScript').player2Score.coin, this.coin);
+        //         // this.fallMoney(cc.find('resident').getComponent('residentScript').player2Score.silver, this.silver);
+        //         // this.fallMoney(cc.find('resident').getComponent('residentScript').player2Score.yb, this.yuanbao);
+        //         // this.clearPlayerMoney(cc.find('resident').getComponent('residentScript').player2Score);
+        //         break;
+        //     case 3:
+        //         // this.fallMoney(cc.find('resident').getComponent('residentScript').player3Score.coin, this.coin);
+        //         // this.fallMoney(cc.find('resident').getComponent('residentScript').player3Score.silver, this.silver);
+        //         // this.fallMoney(cc.find('resident').getComponent('residentScript').player3Score.yb, this.yuanbao);
+        //         // this.clearPlayerMoney(cc.find('resident').getComponent('residentScript').player3Score);
+        //         break;
+        //     case 4:
+        //         // this.fallMoney(cc.find('resident').getComponent('residentScript').player4Score.coin, this.coin);
+        //         // this.fallMoney(cc.find('resident').getComponent('residentScript').player4Score.silver, this.silver);
+        //         // this.fallMoney(cc.find('resident').getComponent('residentScript').player4Score.yb, this.yuanbao);
+        //         // this.clearPlayerMoney(cc.find('resident').getComponent('residentScript').player4Score);
+        //         break;
+        // }
     },
     // 金币下落
-    fallMoney(num, who) {
-        for (let i = 0; i < num; i++) {
-            let newPrefab = cc.instantiate(who);
-            this.node.addChild(newPrefab);
-            let a = {
-                x: Math.random() * 141 - 70,
-                y: 0
-            }
-            newPrefab.position = a;
-            // 获取杯子位置
-            cc.find("Canvas/fall").position = this.node.parent.position;
-            newPrefab.setParent(cc.find("Canvas/fall"))
-        }
-    },
+    // fallMoney(num, who) {
+    //     for (let i = 0; i < num; i++) {
+    //         let newPrefab = cc.instantiate(who);
+    //         this.node.addChild(newPrefab);
+    //         let a = {
+    //             x: Math.random() * 141 - 70,
+    //             y: 0
+    //         }
+    //         newPrefab.position = a;
+    //         // 获取杯子位置
+    //         cc.find("Canvas/fall").position = this.node.parent.position;
+    //         newPrefab.setParent(cc.find("Canvas/fall"))
+    //     }
+    // },
     // 清空杯中成绩
     clearPlayerMoney(obj) {
         obj.coin = 0;
@@ -99,7 +99,7 @@ cc.Class({
         obj.yb = 0;
     },
     // 接到5个金币 清空杯中金币
-    removeCoin(num, type) {
+    removeCoin(obj,type) {
         this.count++;
         this.setY = 0;
         this.pNode.destroyAllChildren();
@@ -108,40 +108,13 @@ cc.Class({
         //     更新成绩
         // }, 0.1, 4);
         // 上报此次得分
-        let obj = {};
-        switch (num) {
-            case 1:
-                var a = cc.find('resident').getComponent('residentScript').player1Score;
-                obj.id = cc.find('resident').getComponent('residentScript').player1Score.person.user.openid;
-                obj.score = a.coin + a.silver*25 + a.yb*50;
-                this.clearPlayerMoney(cc.find('resident').getComponent('residentScript').player1Score);
-                break;
-            case 2:
-                var a = cc.find('resident').getComponent('residentScript').player2Score;
-                obj.id = cc.find('resident').getComponent('residentScript').player2Score.person.user.openid;
-                obj.score = a.coin + a.silver*25 + a.yb*50;
-                this.clearPlayerMoney(cc.find('resident').getComponent('residentScript').player2Score);
-                break;
-            case 3:
-                var a = cc.find('resident').getComponent('residentScript').player3Score;
-                obj.id = cc.find('resident').getComponent('residentScript').player3Score.person.user.openid;
-                obj.score = a.coin + a.silver*25 + a.yb*50;
-                this.clearPlayerMoney(cc.find('resident').getComponent('residentScript').player3Score);
-                break;
-            case 4:
-                var a = cc.find('resident').getComponent('residentScript').player4Score;
-                obj.id = cc.find('resident').getComponent('residentScript').player4Score.person.user.openid;
-                obj.score = a.coin + a.silver*25 + a.yb*50;
-                this.clearPlayerMoney(cc.find('resident').getComponent('residentScript').player4Score);
-                break;
-        }
-        cc.find('resident').emit('upCoin',obj);
+        let id = obj.person.user.openid;
         if (this.count<=10) {
             if (this.count<=5) {
                 this.node.parent.scale += 0.2;
             }
             if (this.count%5 == 0) {
-                cc.find('resident').emit('upAttack',obj.id);
+                cc.find('resident').emit('upAttack',id);
             }
         }
     },

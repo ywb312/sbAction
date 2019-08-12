@@ -26,7 +26,6 @@ cc.Class({
 		// 玩家信息及分数
 		this.player1Score = {
 			once: 0,	//接到的数量
-			sum: 0,		//提交的金额(接到5个更新)
 			coin: 0,	//三种货币
 			yb: 0,
 			silver: 0,
@@ -34,7 +33,6 @@ cc.Class({
 		};
 		this.player2Score = {
 			once: 0,
-			sum: 0,
 			coin: 0,
 			yb: 0,
 			silver: 0,
@@ -42,7 +40,6 @@ cc.Class({
 		};
 		this.player3Score = {
 			once: 0,
-			sum: 0,
 			coin: 0,
 			yb: 0,
 			silver: 0,
@@ -50,7 +47,6 @@ cc.Class({
 		};
 		this.player4Score = {
 			once: 0,
-			sum: 0,
 			coin: 0,
 			yb: 0,
 			silver: 0,
@@ -275,7 +271,6 @@ cc.Class({
 		}
 		function initObj(obj) {
 			obj.once = 0;
-			obj.sum = 0;
 			obj.coin = 0;
 			obj.yb = 0;
 			obj.silver = 0;

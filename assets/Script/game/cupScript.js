@@ -91,6 +91,7 @@ cc.Class({
         this.n = 0;
         this.bol = true;
         this.combo = 0;
+        this.localTime = 0;
         // 闪烁动画
         this.timer = setInterval(()=>{
             this.bol = !this.bol;
@@ -141,28 +142,32 @@ cc.Class({
             // 当n变化时
             if (this.n != obj.n) {
                 this.n = obj.n;
-                switch (obj.tool) {
-                    case "100":
-                        this.createGlass(this.tool1Glass);
-                        break;
-                    case "200":
-                        this.createGlass(this.tool2Glass);
-                        break;
-                    case "300":
-                        this.createGlass(this.tool3Glass);
-                        break;
-                    case "400":
-                        this.createGlass(this.tool4Glass);
-                        break;
-                }
                 if (obj.n == 3) {
-                    clearTimeout(_self.timerAction);
-                    _self.node.runAction(_self.shakeAction);
-                    cc.find('Canvas/bz/bz'+i+'/mid').getComponent('cupAddCoinScript').boomNone();
-                    _self.timerAction = setTimeout(() => {
-                        _self.node.stopAllActions();
-                        _self.node.setRotation(0);
-                    }, 2000);
+                    let localTime = new Date().getTime();
+                    if (localTime-this.localTime>4000) {
+                        this.localTime = new Date().getTime();
+                        cc.find('Canvas/bz/bz'+i+'/mid').getComponent('cupAddCoinScript').boomNone();
+                        _self.node.runAction(_self.shakeAction);
+                        _self.timerAction = setTimeout(() => {
+                            _self.node.stopAllActions();
+                            _self.node.setRotation(0);
+                        }, 2000);
+                    }
+                }else{
+                    switch (obj.tool) {
+                        case "100":
+                            this.createGlass(this.tool1Glass);
+                            break;
+                        case "200":
+                            this.createGlass(this.tool2Glass);
+                            break;
+                        case "300":
+                            this.createGlass(this.tool3Glass);
+                            break;
+                        case "400":
+                            this.createGlass(this.tool4Glass);
+                            break;
+                    }
                 }
             }
             // 设置位置
@@ -295,7 +300,7 @@ cc.Class({
             this.combo = 0;
             cc.find('Canvas/bz/bz'+this.num+'/text').active = false;
         },2000);
-        // +1效果展示
+        // 接到金币+1效果展示
         clearTimeout(this.coinTimer);
         cc.find('Canvas/bz/bz'+this.num+'/addOne').active = true;
         this.coinTimer = setTimeout(()=>{
@@ -342,16 +347,21 @@ cc.Class({
         this.throttle=setTimeout(()=>{
             cc.find('resident').emit('transpondScore',{score:score.now,openid:score.person.user.openid});
         },100);
+        // 上传数据
+        let data = {
+            id:score.person.user.openid,
+            score:1
+        }
+        cc.find('resident').emit('upCoin',data);
         // 杯中金币数量
-        if (score.once<5) { //不到5个
+        if (score.once>=5) { //不到5个
             // 不执行杯中金币
             // if (this.tool == 0) {
             //     cc.find('Canvas/bz/bz'+this.num+'/mid').getComponent('cupAddCoinScript').createCoin(type);
             // }
-        } else {//到5个
+        // } else {//到5个
             score.once=0;
-            score.sum += score.coin + score.silver * 5 +score.yb * 10;
-            cc.find('Canvas/bz/bz'+this.num+'/mid').getComponent('cupAddCoinScript').removeCoin(this.num,type);
+            cc.find('Canvas/bz/bz'+this.num+'/mid').getComponent('cupAddCoinScript').removeCoin(score,type);
         }
     },
     //碰撞产生碎片

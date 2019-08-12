@@ -12,7 +12,6 @@ cc.Class({
         var hundred = parseInt(num/100)%10;
         var ten = parseInt((num%100)/10);
         var one = parseInt(num%10);
-        var bol = true;
         if (thousand == 0) {
             cc.find('Canvas/background/surplus/coins/thousand').active = false;
         }
