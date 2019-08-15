@@ -85,10 +85,16 @@ cc.Class({
             default:[],
             type: [cc.SpriteFrame],
         },
+        boomImg:{
+            default:[],
+            type: [cc.SpriteFrame],
+        },
     },
     start(){
         this.tool = 0;
-        this.n = 0;
+        // 判断有没有变化
+        this.n = 9;
+        this.g = 9;
         this.bol = true;
         this.combo = 0;
         this.localTime = 0;
@@ -138,37 +144,6 @@ cc.Class({
                 cc.find('Canvas/bz/bz'+this.num+'/par').active = true;
             }else{
                 cc.find('Canvas/bz/bz'+this.num+'/par').active = false;
-            }
-            // 当n变化时
-            if (this.n != obj.n) {
-                this.n = obj.n;
-                if (obj.n == 3) {
-                    let localTime = new Date().getTime();
-                    if (localTime-this.localTime>4000) {
-                        this.localTime = new Date().getTime();
-                        cc.find('Canvas/bz/bz'+i+'/mid').getComponent('cupAddCoinScript').boomNone();
-                        _self.node.runAction(_self.shakeAction);
-                        _self.timerAction = setTimeout(() => {
-                            _self.node.stopAllActions();
-                            _self.node.setRotation(0);
-                        }, 2000);
-                    }
-                }else{
-                    switch (obj.tool) {
-                        case "100":
-                            this.createGlass(this.tool1Glass);
-                            break;
-                        case "200":
-                            this.createGlass(this.tool2Glass);
-                            break;
-                        case "300":
-                            this.createGlass(this.tool3Glass);
-                            break;
-                        case "400":
-                            this.createGlass(this.tool4Glass);
-                            break;
-                    }
-                }
             }
             // 设置位置
                 // 利用动画的方式
@@ -225,22 +200,61 @@ cc.Class({
                     break;
             }
             // 杯子上附着的火焰效果
-            switch (obj.g) {
-                case 0:
-                    this.cupState.active = false;
-                    break;
-                case 1:
-                    this.cupState.active = true;
-                    this.cupState.y = 0;
-                    this.cupState.getComponent(cc.Sprite).spriteFrame = this.stateList[0];
-                    break;
-                case 2:
-                    this.cupState.active = true;
-                    this.cupState.y = -10;
-                    this.cupState.getComponent(cc.Sprite).spriteFrame = this.stateList[1];
-                    break;
+            if (obj.g!=this.g) {
+                this.g = obj.g;
+                switch (obj.g) {
+                    case 0:
+                        this.cupState.active = false;
+                        break;
+                    case 1:
+                        this.cupState.active = true;
+                        this.cupState.y = 0;
+                        this.cupState.getComponent(cc.Sprite).spriteFrame = this.stateList[0];
+                        break;
+                    case 2:
+                        this.cupState.active = true;
+                        this.cupState.y = -10;
+                        this.cupState.getComponent(cc.Sprite).spriteFrame = this.stateList[1];
+                        break;
+                }
             }
-            this.cupPic.getComponent(cc.Sprite).spriteFrame = list[obj.n];
+            // 当n变化时
+            if (this.n != obj.n) {
+                this.n = obj.n;
+                this.cupPic.getComponent(cc.Sprite).spriteFrame = list[obj.n];
+                if (obj.n == 3) {
+                    cc.find('Canvas/bz/bz'+i+'/mid').getComponent('cupAddCoinScript').boomNone();
+                    _self.node.runAction(_self.shakeAction);
+                    _self.timerAction = setTimeout(() => {
+                        _self.cupState.active = false;
+                        _self.node.stopAllActions();
+                        _self.node.setRotation(0);
+                        let n = 0;
+                        let boomTimer = setInterval(()=>{
+                            _self.cupPic.getComponent(cc.Sprite).spriteFrame = _self.boomImg[n];
+                            n++;
+                            if (n>=5) {
+                                clearInterval(boomTimer);
+                            }
+                        },200);
+                    }, 3000);
+                }else{
+                    switch (obj.tool) {
+                        case "100":
+                            this.createGlass(this.tool1Glass);
+                            break;
+                        case "200":
+                            this.createGlass(this.tool2Glass);
+                            break;
+                        case "300":
+                            this.createGlass(this.tool3Glass);
+                            break;
+                        case "400":
+                            this.createGlass(this.tool4Glass);
+                            break;
+                    }
+                }
+            }
         }
     },
     // 监听碰撞
