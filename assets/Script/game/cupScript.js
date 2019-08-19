@@ -221,6 +221,8 @@ cc.Class({
             // 当n变化时
             if (this.n != obj.n) {
                 this.n = obj.n;
+                clearTimeout(this.timerAction);
+                clearInterval(_self.boomTimer);
                 this.cupPic.getComponent(cc.Sprite).spriteFrame = list[obj.n];
                 if (obj.n == 3) {
                     cc.find('Canvas/bz/bz'+i+'/mid').getComponent('cupAddCoinScript').boomNone();
@@ -230,11 +232,11 @@ cc.Class({
                         _self.node.stopAllActions();
                         _self.node.setRotation(0);
                         let n = 0;
-                        let boomTimer = setInterval(()=>{
+                        _self.boomTimer = setInterval(()=>{
                             _self.cupPic.getComponent(cc.Sprite).spriteFrame = _self.boomImg[n];
                             n++;
                             if (n>=5) {
-                                clearInterval(boomTimer);
+                                clearInterval(_self.boomTimer);
                             }
                         },200);
                     }, 3000);
@@ -395,5 +397,6 @@ cc.Class({
         clearTimeout(this.coinTimer);
         clearTimeout(this.comboTimer);
         clearTimeout(this.timerAction);
+        clearInterval(_self.boomTimer);
     }
 });

@@ -154,7 +154,7 @@ cc.Class({
             if (cc.find('Canvas/yunLow/prefabListNode').children.length == 0) {
                 this.createPrefab();
             }
-        },200)
+        },200);
     },
     // 创建金币
     createPrefab(){
