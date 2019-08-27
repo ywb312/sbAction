@@ -397,6 +397,6 @@ cc.Class({
         clearTimeout(this.coinTimer);
         clearTimeout(this.comboTimer);
         clearTimeout(this.timerAction);
-        clearInterval(_self.boomTimer);
+        clearInterval(this.boomTimer);
     }
 });
